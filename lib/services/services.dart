@@ -1,6 +1,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:project_inc/models/answer.dart';
 import 'package:project_inc/models/collaborations.dart';
+import 'package:project_inc/models/queries.dart';
 
 abstract class Services {
   void resetPass({String? email});
@@ -13,6 +15,10 @@ abstract class Services {
   Future<String> getcurrentuser_name();
   void postrequest(String? project, String skills, bool offer);
   Future<BuiltList<Collaborations>> getcollaborations();
+  void postquery(String query, String link);
+  Future<BuiltList<Queries>> getqueries();
+  Future<BuiltList<Answer>> getanswers(String queryid);
+  void postans(String queryid, String ans);
 }
 
 final purple = Colors.purple[900];

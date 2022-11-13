@@ -52,7 +52,7 @@ class _LoggedState extends State<Logged> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.people_outline_rounded),
-                  label: "Colloborate",
+                  label: "Collaborate",
                 ),
               ],
               type: BottomNavigationBarType.shifting,

@@ -1,37 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'collaborations.dart';
+part of 'queries.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Collaborations> _$collaborationsSerializer =
-    new _$CollaborationsSerializer();
+Serializer<Queries> _$queriesSerializer = new _$QueriesSerializer();
 
-class _$CollaborationsSerializer
-    implements StructuredSerializer<Collaborations> {
+class _$QueriesSerializer implements StructuredSerializer<Queries> {
   @override
-  final Iterable<Type> types = const [Collaborations, _$Collaborations];
+  final Iterable<Type> types = const [Queries, _$Queries];
   @override
-  final String wireName = 'Collaborations';
+  final String wireName = 'Queries';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Collaborations object,
+  Iterable<Object?> serialize(Serializers serializers, Queries object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.project;
+    value = object.query;
     if (value != null) {
       result
-        ..add('project')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.skills;
-    if (value != null) {
-      result
-        ..add('skills')
+        ..add('query')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -42,12 +33,26 @@ class _$CollaborationsSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.offer;
+    value = object.userid;
     if (value != null) {
       result
-        ..add('offer')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
+        ..add('userid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.id;
+    if (value != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.link;
+    if (value != null) {
+      result
+        ..add('link')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.time;
     if (value != null) {
@@ -60,10 +65,9 @@ class _$CollaborationsSerializer
   }
 
   @override
-  Collaborations deserialize(
-      Serializers serializers, Iterable<Object?> serialized,
+  Queries deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new CollaborationsBuilder();
+    final result = new QueriesBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -71,21 +75,25 @@ class _$CollaborationsSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'project':
-          result.project = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
-        case 'skills':
-          result.skills = serializers.deserialize(value,
+        case 'query':
+          result.query = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
         case 'user':
           result.user = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'offer':
-          result.offer = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool?;
+        case 'userid':
+          result.userid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'link':
+          result.link = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'time':
           result.time = serializers.deserialize(value,
@@ -98,97 +106,108 @@ class _$CollaborationsSerializer
   }
 }
 
-class _$Collaborations extends Collaborations {
+class _$Queries extends Queries {
   @override
-  final String? project;
-  @override
-  final String? skills;
+  final String? query;
   @override
   final String? user;
   @override
-  final bool? offer;
+  final String? userid;
+  @override
+  final String? id;
+  @override
+  final String? link;
   @override
   final String? time;
 
-  factory _$Collaborations([void Function(CollaborationsBuilder)? updates]) =>
-      (new CollaborationsBuilder()..update(updates))._build();
+  factory _$Queries([void Function(QueriesBuilder)? updates]) =>
+      (new QueriesBuilder()..update(updates))._build();
 
-  _$Collaborations._(
-      {this.project, this.skills, this.user, this.offer, this.time})
+  _$Queries._(
+      {this.query, this.user, this.userid, this.id, this.link, this.time})
       : super._();
 
   @override
-  Collaborations rebuild(void Function(CollaborationsBuilder) updates) =>
+  Queries rebuild(void Function(QueriesBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CollaborationsBuilder toBuilder() =>
-      new CollaborationsBuilder()..replace(this);
+  QueriesBuilder toBuilder() => new QueriesBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Collaborations &&
-        project == other.project &&
-        skills == other.skills &&
+    return other is Queries &&
+        query == other.query &&
         user == other.user &&
-        offer == other.offer &&
+        userid == other.userid &&
+        id == other.id &&
+        link == other.link &&
         time == other.time;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, project.hashCode), skills.hashCode), user.hashCode),
-            offer.hashCode),
+        $jc(
+            $jc(
+                $jc($jc($jc(0, query.hashCode), user.hashCode),
+                    userid.hashCode),
+                id.hashCode),
+            link.hashCode),
         time.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'Collaborations')
-          ..add('project', project)
-          ..add('skills', skills)
+    return (newBuiltValueToStringHelper(r'Queries')
+          ..add('query', query)
           ..add('user', user)
-          ..add('offer', offer)
+          ..add('userid', userid)
+          ..add('id', id)
+          ..add('link', link)
           ..add('time', time))
         .toString();
   }
 }
 
-class CollaborationsBuilder
-    implements Builder<Collaborations, CollaborationsBuilder> {
-  _$Collaborations? _$v;
+class QueriesBuilder implements Builder<Queries, QueriesBuilder> {
+  _$Queries? _$v;
 
-  String? _project;
-  String? get project => _$this._project;
-  set project(String? project) => _$this._project = project;
-
-  String? _skills;
-  String? get skills => _$this._skills;
-  set skills(String? skills) => _$this._skills = skills;
+  String? _query;
+  String? get query => _$this._query;
+  set query(String? query) => _$this._query = query;
 
   String? _user;
   String? get user => _$this._user;
   set user(String? user) => _$this._user = user;
 
-  bool? _offer;
-  bool? get offer => _$this._offer;
-  set offer(bool? offer) => _$this._offer = offer;
+  String? _userid;
+  String? get userid => _$this._userid;
+  set userid(String? userid) => _$this._userid = userid;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
+  String? _link;
+  String? get link => _$this._link;
+  set link(String? link) => _$this._link = link;
 
   String? _time;
   String? get time => _$this._time;
   set time(String? time) => _$this._time = time;
 
-  CollaborationsBuilder();
+  QueriesBuilder();
 
-  CollaborationsBuilder get _$this {
+  QueriesBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _project = $v.project;
-      _skills = $v.skills;
+      _query = $v.query;
       _user = $v.user;
-      _offer = $v.offer;
+      _userid = $v.userid;
+      _id = $v.id;
+      _link = $v.link;
       _time = $v.time;
       _$v = null;
     }
@@ -196,26 +215,27 @@ class CollaborationsBuilder
   }
 
   @override
-  void replace(Collaborations other) {
+  void replace(Queries other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Collaborations;
+    _$v = other as _$Queries;
   }
 
   @override
-  void update(void Function(CollaborationsBuilder)? updates) {
+  void update(void Function(QueriesBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  Collaborations build() => _build();
+  Queries build() => _build();
 
-  _$Collaborations _build() {
+  _$Queries _build() {
     final _$result = _$v ??
-        new _$Collaborations._(
-            project: project,
-            skills: skills,
+        new _$Queries._(
+            query: query,
             user: user,
-            offer: offer,
+            userid: userid,
+            id: id,
+            link: link,
             time: time);
     replace(_$result);
     return _$result;

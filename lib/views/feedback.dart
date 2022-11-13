@@ -71,7 +71,7 @@ class _FeedBackState extends State<FeedBack> {
                       height: 10,
                     ),
                     MaterialButton(
-                        onPressed: controll.text.isEmpty
+                        onPressed: controll.value == ''
                             ? () {
                                 print("nothing");
                               }

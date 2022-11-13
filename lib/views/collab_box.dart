@@ -6,7 +6,8 @@ class CollabBox extends StatefulWidget {
   final String name;
   final String skills;
   final bool offer;
-  CollabBox(this.project, this.name, this.skills, this.offer);
+  final String time;
+  CollabBox(this.project, this.name, this.skills, this.offer, this.time);
 
   @override
   State<CollabBox> createState() => _CollabBoxState();
@@ -20,19 +21,25 @@ class _CollabBoxState extends State<CollabBox> {
       padding: const EdgeInsets.all(16.0),
       child: Container(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/bgimage.jpeg"),
+                    fit: BoxFit.cover,
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   color: purple,
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
                             width: 16,
@@ -43,6 +50,20 @@ class _CollabBoxState extends State<CollabBox> {
                                 : widget.name + " needs a project",
                             style: TextStyle(color: Colors.white),
                           ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                widget.time.split(' ')[0],
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text(
+                                widget.time
+                                    .substring(11, widget.time.length - 10),
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -132,8 +153,14 @@ class _CollabBoxState extends State<CollabBox> {
                     MaterialButton(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Interest Sent"),
-                          backgroundColor: purple,
+                          content: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Interest Sent",
+                              style: styling,
+                            ),
+                          ),
+                          backgroundColor: Colors.white,
                         ));
                       },
                       color: Colors.white,

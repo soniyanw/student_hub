@@ -39,12 +39,8 @@ class _CollaborateState extends State<Collaborate> {
               child: ListView.builder(
                 itemCount: list.length,
                 itemBuilder: (context, index) {
-                  return CollabBox(
-                    list[index].project,
-                    list[index].user,
-                    list[index].skills,
-                    list[index].offer,
-                  );
+                  return CollabBox(list[index].project, list[index].user,
+                      list[index].skills, list[index].offer, list[index].time);
                 },
               ),
             ),

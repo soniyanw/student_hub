@@ -1,8 +1,10 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
+import 'package:project_inc/models/answer.dart';
 import 'package:project_inc/models/appstate.dart';
 import 'package:project_inc/models/collaborations.dart';
+import 'package:project_inc/models/queries.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:state_notifier/state_notifier.dart';
@@ -39,6 +41,20 @@ class MyModel extends StateNotifier<Appstate> with LocatorMixin {
     final BuiltList<Collaborations> a = await imp.getcollaborations();
     state = state.rebuild((p0) {
       p0.collaborations = a.toBuilder();
+    });
+  }
+
+  Future<void> get_query_list() async {
+    final BuiltList<Queries> a = await imp.getqueries();
+    state = state.rebuild((p0) {
+      p0.queries = a.toBuilder();
+    });
+  }
+
+  Future<void> get_ans_list(String queryid) async {
+    final BuiltList<Answer> a = await imp.getanswers(queryid);
+    state = state.rebuild((p0) {
+      p0.answers = a.toBuilder();
     });
   }
 }
