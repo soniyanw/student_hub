@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/views/answer_list.dart';
 
@@ -15,7 +16,7 @@ class QueryBox extends StatefulWidget {
 }
 
 class _QueryBoxState extends State<QueryBox> {
-  @override
+  Services imp = new ServiceImp();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,12 +41,12 @@ class _QueryBoxState extends State<QueryBox> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: 16,
-                          ),
-                          Text(
-                            widget.username,
-                            style: TextStyle(color: Colors.white),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16.0),
+                            child: Text(
+                              widget.username,
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -77,6 +78,7 @@ class _QueryBoxState extends State<QueryBox> {
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
+                              fontSize: 18,
                               decoration: TextDecoration.underline,
                             ),
                           ),
@@ -90,21 +92,27 @@ class _QueryBoxState extends State<QueryBox> {
                           SizedBox(
                             height: 8,
                           ),
-                          Text(
-                            "Attachments:",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          TextButton(
+                            onPressed: () {
+                              imp.launchURLtoWeb(widget.link.trim());
+                            },
                             child: Text(
                               widget.link,
-                              style: TextStyle(color: Colors.white),
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                decoration: TextDecoration.underline,
+                              ),
                             ),
-                          )
+                          ),
+                          Text(
+                            "(Tap on link to open attachment)",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                     ),

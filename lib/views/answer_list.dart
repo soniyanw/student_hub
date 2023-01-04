@@ -16,6 +16,7 @@ class Answers extends StatefulWidget {
 class _AnswersState extends State<Answers> {
   Future<void> method() async {
     await context.read<MyModel>().get_ans_list(widget.queryid);
+    setState(() {});
   }
 
   @override
@@ -37,8 +38,90 @@ class _AnswersState extends State<Answers> {
         title: Text("Answers"),
         backgroundColor: purple,
       ),
-      body: (list == null)
-          ? Center(child: Text("Nothing Yet"))
+      body: (list == null || list.isEmpty)
+          ? Column(
+              children: [
+                Expanded(child: Center(child: Text("No answers yet"))),
+                Container(
+                  width: double.infinity,
+                  color: Colors.white,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.75,
+                          child: TextField(
+                            maxLines: 2,
+                            style: TextStyle(color: purple),
+                            controller: controll,
+                            onChanged: (val) {
+                              print(controll.value);
+                              context.read<MyModel>().assignDescrip(val);
+                            },
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: Colors.purple[900] ??
+                                        Colors.purple), //<-- SEE HERE
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: Colors.purple[900] ??
+                                        Colors.purple), //<-- SEE HERE
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 4,
+                                    color: Colors.purple[900] ??
+                                        Colors.purple), //<-- SEE HERE
+                              ),
+                              labelText: "Your Answer...",
+                              labelStyle: styling,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 2,
+                                    color: Colors.purple[900] ?? Colors.purple),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: controll.value == ''
+                              ? () {
+                                  print("nothing");
+                                }
+                              : () {
+                                  FocusScope.of(context).unfocus();
+                                  imp.postans(
+                                      widget.queryid,
+                                      context
+                                          .read<MyModel>()
+                                          .state
+                                          .descrip
+                                          .toString());
+                                  controll.clear();
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text("Answer posted"),
+                                    backgroundColor: purple,
+                                  ));
+                                  setState(() {});
+                                  setState(() {});
+                                  setState(() {});
+                                },
+                          icon: Icon(
+                            Icons.send,
+                            color: purple,
+                          ))
+                    ],
+                  ),
+                )
+              ],
+            )
           : Column(
               children: [
                 Expanded(

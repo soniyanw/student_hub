@@ -14,11 +14,14 @@ class _ProfileState extends State<Profile> {
   @override
   update() async {
     await context.read<MyModel>().getdetails();
+    setState(() {});
   }
 
   void initState() {
     // TODO: implement initState
     update();
+    setState(() {});
+    setState(() {});
     super.initState();
   }
 

@@ -56,6 +56,13 @@ class _$CollaborationsSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.usermail;
+    if (value != null) {
+      result
+        ..add('usermail')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -91,6 +98,10 @@ class _$CollaborationsSerializer
           result.time = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'usermail':
+          result.usermail = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
       }
     }
 
@@ -109,12 +120,19 @@ class _$Collaborations extends Collaborations {
   final bool? offer;
   @override
   final String? time;
+  @override
+  final String? usermail;
 
   factory _$Collaborations([void Function(CollaborationsBuilder)? updates]) =>
       (new CollaborationsBuilder()..update(updates))._build();
 
   _$Collaborations._(
-      {this.project, this.skills, this.user, this.offer, this.time})
+      {this.project,
+      this.skills,
+      this.user,
+      this.offer,
+      this.time,
+      this.usermail})
       : super._();
 
   @override
@@ -133,15 +151,20 @@ class _$Collaborations extends Collaborations {
         skills == other.skills &&
         user == other.user &&
         offer == other.offer &&
-        time == other.time;
+        time == other.time &&
+        usermail == other.usermail;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc($jc(0, project.hashCode), skills.hashCode), user.hashCode),
-            offer.hashCode),
-        time.hashCode));
+        $jc(
+            $jc(
+                $jc($jc($jc(0, project.hashCode), skills.hashCode),
+                    user.hashCode),
+                offer.hashCode),
+            time.hashCode),
+        usermail.hashCode));
   }
 
   @override
@@ -151,7 +174,8 @@ class _$Collaborations extends Collaborations {
           ..add('skills', skills)
           ..add('user', user)
           ..add('offer', offer)
-          ..add('time', time))
+          ..add('time', time)
+          ..add('usermail', usermail))
         .toString();
   }
 }
@@ -180,6 +204,10 @@ class CollaborationsBuilder
   String? get time => _$this._time;
   set time(String? time) => _$this._time = time;
 
+  String? _usermail;
+  String? get usermail => _$this._usermail;
+  set usermail(String? usermail) => _$this._usermail = usermail;
+
   CollaborationsBuilder();
 
   CollaborationsBuilder get _$this {
@@ -190,6 +218,7 @@ class CollaborationsBuilder
       _user = $v.user;
       _offer = $v.offer;
       _time = $v.time;
+      _usermail = $v.usermail;
       _$v = null;
     }
     return this;
@@ -216,7 +245,8 @@ class CollaborationsBuilder
             skills: skills,
             user: user,
             offer: offer,
-            time: time);
+            time: time,
+            usermail: usermail);
     replace(_$result);
     return _$result;
   }

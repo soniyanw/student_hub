@@ -6,6 +6,7 @@ import 'package:project_inc/models/collaborations.dart';
 import 'package:project_inc/models/feedbacks.dart';
 import 'package:project_inc/models/queries.dart';
 import 'package:project_inc/services/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ServiceImp implements Services {
   @override
@@ -79,6 +80,7 @@ class ServiceImp implements Services {
     Collaborations newFeed = Collaborations((b) => b
       ..project = project
       ..user = data['name'].toString()
+      ..usermail = data['mail'].toString()
       ..offer = offer
       ..time = Timestamp.now().toDate().toString()
       ..skills = skills);
@@ -152,7 +154,7 @@ class ServiceImp implements Services {
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
         await FirebaseFirestore.instance
             .collection('answers')
-            .where("queryid", isEqualTo: queryid)
+            .where('queryid', isEqualTo: queryid)
             .get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
         _collectionRef.docs;
@@ -163,5 +165,14 @@ class ServiceImp implements Services {
     print("answers");
     print(list);
     return list.toBuiltList();
+  }
+
+  launchURLtoWeb(String urll) async {
+    final url = urll;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

@@ -26,4 +26,5 @@ abstract class Collaborations
   String? get user;
   bool? get offer;
   String? get time;
+  String? get usermail;
 }

@@ -16,6 +16,7 @@ class Query extends StatefulWidget {
 class _QueryState extends State<Query> {
   Future<void> method() async {
     await context.read<MyModel>().get_query_list();
+    setState(() {});
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CollabBox extends StatefulWidget {
   final String project;
@@ -7,7 +8,9 @@ class CollabBox extends StatefulWidget {
   final String skills;
   final bool offer;
   final String time;
-  CollabBox(this.project, this.name, this.skills, this.offer, this.time);
+  final String mail;
+  CollabBox(
+      this.project, this.name, this.skills, this.offer, this.time, this.mail);
 
   @override
   State<CollabBox> createState() => _CollabBoxState();
@@ -41,13 +44,10 @@ class _CollabBoxState extends State<CollabBox> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: 16,
-                          ),
                           Text(
                             widget.offer
-                                ? widget.name + " needs a colleague"
-                                : widget.name + " needs a project",
+                                ? widget.name + " needs a project"
+                                : widget.name + " needs a colleague",
                             style: TextStyle(color: Colors.white),
                           ),
                           Column(
@@ -77,7 +77,7 @@ class _CollabBoxState extends State<CollabBox> {
                             child: Column(
                               children: [
                                 Text(
-                                  "Pevious Projects:",
+                                  "Previous Projects:",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -117,7 +117,7 @@ class _CollabBoxState extends State<CollabBox> {
                             child: Column(
                               children: [
                                 Text(
-                                  "Pevious Details:",
+                                  "Project Details:",
                                   style: TextStyle(
                                       color: Colors.white,
                                       decoration: TextDecoration.underline,
@@ -151,7 +151,20 @@ class _CollabBoxState extends State<CollabBox> {
                             ),
                           ),
                     MaterialButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        String email = Uri.encodeComponent(widget.mail);
+                        String subject = Uri.encodeComponent(
+                            "Interest regarding the post in Student-Hub");
+                        String body = Uri.encodeComponent(widget.offer
+                            ? "We are in need of your specified skills\n\n${widget.skills}\nYour response here..."
+                            : "I possess the required skills for the posted project\n\n${widget.project}\nYour response....");
+                        Uri mail1 = Uri.parse(
+                            "mailto:$email?subject=$subject&body=$body");
+                        if (await launchUrl(mail1)) {
+                          //email app opened
+                        } else {
+                          //email app is not opened
+                        }
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Padding(
                             padding: const EdgeInsets.all(8.0),

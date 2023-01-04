@@ -19,6 +19,7 @@ abstract class Services {
   Future<BuiltList<Queries>> getqueries();
   Future<BuiltList<Answer>> getanswers(String queryid);
   void postans(String queryid, String ans);
+  launchURLtoWeb(String urll);
 }
 
 final purple = Colors.purple[900];

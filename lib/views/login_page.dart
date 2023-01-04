@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/views/loggedIn_page.dart';
@@ -23,6 +24,17 @@ class _LoginState extends State<Login> {
   var enteredpass = '';
   var newtext;
   var newpass;
+  Future<void> initi() async {
+    await Future.delayed(const Duration(seconds: 1));
+    FlutterNativeSplash.remove();
+  }
+
+  @override
+  void initState() {
+    initi();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
