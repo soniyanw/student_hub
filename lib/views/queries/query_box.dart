@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
-import 'package:project_inc/views/answer_list.dart';
+import 'package:project_inc/views/queries/answer_list.dart';
 
 class QueryBox extends StatefulWidget {
   final String query;

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/services.dart';
-import 'package:project_inc/views/feedback.dart';
-import 'package:project_inc/views/login_page.dart';
-import 'package:project_inc/views/profile.dart';
+import 'package:project_inc/views/auth/login_page.dart';
+import 'package:project_inc/views/collaboration/collaboration_page.dart';
+import 'package:project_inc/views/home/feedback_page.dart';
+import 'package:project_inc/views/home/profile_page.dart';
 
 class Menu extends StatelessWidget {
   const Menu({Key? key}) : super(key: key);
@@ -27,6 +28,12 @@ class Menu extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Login()),
+          );
+          break;
+        case 6:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Collaborate()),
           );
           break;
       }
@@ -54,6 +61,36 @@ class Menu extends StatelessWidget {
                           ),
                           Text(
                             'Profile',
+                            style: styling,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        color: purple,
+                      )
+                    ],
+                  )),
+              PopupMenuItem<int>(
+                  value: 6,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.people,
+                            color: purple,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            'Collaboration',
                             style: styling,
                           ),
                         ],

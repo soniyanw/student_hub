@@ -9,6 +9,8 @@ import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:state_notifier/state_notifier.dart';
 
+import '../models/feedbacks.dart';
+
 class Changes extends StatelessWidget {
   const Changes({Key? key, required this.child}) : super(key: key);
   final Widget child;
@@ -55,6 +57,13 @@ class MyModel extends StateNotifier<Appstate> with LocatorMixin {
     final BuiltList<Answer> a = await imp.getanswers(queryid);
     state = state.rebuild((p0) {
       p0.answers = a.toBuilder();
+    });
+  }
+
+  Future<void> get_feedbacks() async {
+    final BuiltList<Feedbacks> a = await imp.getFeedbacks();
+    state = state.rebuild((p0) {
+      p0.feedbacks = a.toBuilder();
     });
   }
 }

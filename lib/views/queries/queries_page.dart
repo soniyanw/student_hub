@@ -2,8 +2,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
-import 'package:project_inc/views/new_query.dart';
-import 'package:project_inc/views/query_box.dart';
+import 'package:project_inc/views/queries/new_query_page.dart';
+import 'package:project_inc/views/queries/query_box.dart';
 import 'package:provider/provider.dart';
 
 class Query extends StatefulWidget {
@@ -49,7 +49,7 @@ class _QueryState extends State<Query> {
         width: double.infinity,
         color: purple,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+          padding: const EdgeInsets.fromLTRB(40, 12, 40, 12),
           child: MaterialButton(
             onPressed: () {
               Navigator.push(
@@ -57,7 +57,7 @@ class _QueryState extends State<Query> {
             },
             color: Colors.white,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
                 "New Query",
                 style: TextStyle(color: purple),

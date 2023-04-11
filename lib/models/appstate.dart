@@ -3,6 +3,7 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:project_inc/models/answer.dart';
 import 'package:project_inc/models/collaborations.dart';
+import 'package:project_inc/models/feedbacks.dart';
 import 'package:project_inc/models/queries.dart';
 import 'package:project_inc/models/serializers.dart';
 
@@ -29,4 +30,5 @@ abstract class Appstate implements Built<Appstate, AppstateBuilder> {
   BuiltList<Collaborations>? get collaborations;
   BuiltList<Queries>? get queries;
   BuiltList<Answer>? get answers;
+  BuiltList<Feedbacks>? get feedbacks;
 }

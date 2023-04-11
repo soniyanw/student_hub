@@ -167,6 +167,19 @@ class ServiceImp implements Services {
     return list.toBuiltList();
   }
 
+  Future<BuiltList<Feedbacks>> getFeedbacks() async {
+    final QuerySnapshot<Map<String, dynamic>> _collectionRef =
+        await FirebaseFirestore.instance.collection('feedbacks').get();
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
+        _collectionRef.docs;
+    List<Feedbacks> list = [];
+    snapshot.forEach((element) {
+      list.add(Feedbacks.fromJson(element.data()));
+    });
+    print(list);
+    return list.toBuiltList();
+  }
+
   launchURLtoWeb(String urll) async {
     final url = urll;
     if (await canLaunch(url)) {

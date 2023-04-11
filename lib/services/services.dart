@@ -4,6 +4,8 @@ import 'package:project_inc/models/answer.dart';
 import 'package:project_inc/models/collaborations.dart';
 import 'package:project_inc/models/queries.dart';
 
+import '../models/feedbacks.dart';
+
 abstract class Services {
   void resetPass({String? email});
   void signin({String? mail, String? pass});
@@ -20,6 +22,7 @@ abstract class Services {
   Future<BuiltList<Answer>> getanswers(String queryid);
   void postans(String queryid, String ans);
   launchURLtoWeb(String urll);
+  Future<BuiltList<Feedbacks>> getFeedbacks();
 }
 
 final purple = Colors.purple[900];

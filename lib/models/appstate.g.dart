@@ -71,6 +71,14 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Answer)])));
     }
+    value = object.feedbacks;
+    if (value != null) {
+      result
+        ..add('feedbacks')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Feedbacks)])));
+    }
     return result;
   }
 
@@ -119,6 +127,12 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
                       BuiltList, const [const FullType(Answer)]))!
               as BuiltList<Object?>);
           break;
+        case 'feedbacks':
+          result.feedbacks.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Feedbacks)]))!
+              as BuiltList<Object?>);
+          break;
       }
     }
 
@@ -141,6 +155,8 @@ class _$Appstate extends Appstate {
   final BuiltList<Queries>? queries;
   @override
   final BuiltList<Answer>? answers;
+  @override
+  final BuiltList<Feedbacks>? feedbacks;
 
   factory _$Appstate([void Function(AppstateBuilder)? updates]) =>
       (new AppstateBuilder()..update(updates))._build();
@@ -152,7 +168,8 @@ class _$Appstate extends Appstate {
       this.mail,
       this.collaborations,
       this.queries,
-      this.answers})
+      this.answers,
+      this.feedbacks})
       : super._();
 
   @override
@@ -172,7 +189,8 @@ class _$Appstate extends Appstate {
         mail == other.mail &&
         collaborations == other.collaborations &&
         queries == other.queries &&
-        answers == other.answers;
+        answers == other.answers &&
+        feedbacks == other.feedbacks;
   }
 
   @override
@@ -181,12 +199,14 @@ class _$Appstate extends Appstate {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, descrip.hashCode), name.hashCode),
-                        id.hashCode),
-                    mail.hashCode),
-                collaborations.hashCode),
-            queries.hashCode),
-        answers.hashCode));
+                    $jc(
+                        $jc($jc($jc(0, descrip.hashCode), name.hashCode),
+                            id.hashCode),
+                        mail.hashCode),
+                    collaborations.hashCode),
+                queries.hashCode),
+            answers.hashCode),
+        feedbacks.hashCode));
   }
 
   @override
@@ -198,7 +218,8 @@ class _$Appstate extends Appstate {
           ..add('mail', mail)
           ..add('collaborations', collaborations)
           ..add('queries', queries)
-          ..add('answers', answers))
+          ..add('answers', answers)
+          ..add('feedbacks', feedbacks))
         .toString();
   }
 }
@@ -238,6 +259,12 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
       _$this._answers ??= new ListBuilder<Answer>();
   set answers(ListBuilder<Answer>? answers) => _$this._answers = answers;
 
+  ListBuilder<Feedbacks>? _feedbacks;
+  ListBuilder<Feedbacks> get feedbacks =>
+      _$this._feedbacks ??= new ListBuilder<Feedbacks>();
+  set feedbacks(ListBuilder<Feedbacks>? feedbacks) =>
+      _$this._feedbacks = feedbacks;
+
   AppstateBuilder();
 
   AppstateBuilder get _$this {
@@ -250,6 +277,7 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
       _collaborations = $v.collaborations?.toBuilder();
       _queries = $v.queries?.toBuilder();
       _answers = $v.answers?.toBuilder();
+      _feedbacks = $v.feedbacks?.toBuilder();
       _$v = null;
     }
     return this;
@@ -280,7 +308,8 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
               mail: mail,
               collaborations: _collaborations?.build(),
               queries: _queries?.build(),
-              answers: _answers?.build());
+              answers: _answers?.build(),
+              feedbacks: _feedbacks?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -290,6 +319,8 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
         _queries?.build();
         _$failedField = 'answers';
         _answers?.build();
+        _$failedField = 'feedbacks';
+        _feedbacks?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Appstate', _$failedField, e.toString());

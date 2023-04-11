@@ -2,9 +2,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
-import 'package:project_inc/views/collab_box.dart';
-import 'package:project_inc/views/new_hire_collaborate.dart';
-import 'package:project_inc/views/new_offer_collaborate.dart';
+import 'package:project_inc/views/collaboration/collaboration_box.dart';
+import 'package:project_inc/views/collaboration/new_hire_page.dart';
+import 'package:project_inc/views/collaboration/new_offer_page.dart';
 import 'package:provider/provider.dart';
 
 class Collaborate extends StatefulWidget {
@@ -33,6 +33,10 @@ class _CollaborateState extends State<Collaborate> {
     BuiltList? list = context.read<MyModel>().state.collaborations;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Collaborations"),
+        backgroundColor: purple,
+      ),
       body: (list == null)
           ? Center(child: Text("Nothing Yet"))
           : Padding(
