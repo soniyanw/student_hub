@@ -253,80 +253,99 @@ class _RegisterNowState extends State<RegisterNow> {
                     height: 48.0,
                   ),
                   Container(
-                    width: double.infinity,
-                    height: 54.0,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.purple[900]),
-                          shape: MaterialStateProperty.all(StadiumBorder())),
-                      onPressed: () {
-                        bool emailValid = RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(enteredmail1);
-                        if (enteredmail1 == '' ||
-                            enteredpass1 == '' ||
-                            enteredpass2 == '') {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Fill all the fields properly"),
-                            backgroundColor: purple,
-                          ));
-                        } else {
-                          if (emailValid == true) {
-                            if (enteredpass1.length >= 6) {
-                              if (enteredpass2 == enteredpass1) {
-                                try {
-                                  imp.signup(
-                                      mail: enteredmail1,
-                                      pass: enteredpass1,
-                                      name: name);
+                      width: double.infinity,
+                      height: 54.0,
+                      child: !loading
+                          ? ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.purple[900]),
+                                  shape: MaterialStateProperty.all(
+                                      StadiumBorder())),
+                              onPressed: () async {
+                                bool emailValid = RegExp(
+                                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                    .hasMatch(enteredmail1);
+                                if (enteredmail1 == '' ||
+                                    enteredpass1 == '' ||
+                                    enteredpass2 == '') {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
-                                    content: Text("Registered Successfully"),
+                                    content:
+                                        Text("Fill all the fields properly"),
                                     backgroundColor: purple,
                                   ));
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Logged()),
-                                      (Route<dynamic> route) => false);
-                                } on FirebaseException catch (e) {
-                                  print(e);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    content: Text(e.toString()),
-                                    backgroundColor: purple,
-                                  ));
+                                } else {
+                                  if (emailValid == true) {
+                                    if (enteredpass1.length >= 6) {
+                                      if (enteredpass2 == enteredpass1) {
+                                        try {
+                                          setState(() {
+                                            loading = true;
+                                          });
+                                          await imp.signup(
+                                              mail: enteredmail1,
+                                              pass: enteredpass1,
+                                              name: name);
+                                          setState(() {
+                                            loading = false;
+                                          });
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content:
+                                                Text("Registered Successfully"),
+                                            backgroundColor: purple,
+                                          ));
+                                          Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Logged()),
+                                              (Route<dynamic> route) => false);
+                                        } on FirebaseException catch (e) {
+                                          print(e);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text(e.toString()),
+                                            backgroundColor: purple,
+                                          ));
+                                        }
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          content:
+                                              Text("Passwords do not match"),
+                                          backgroundColor: purple,
+                                        ));
+                                      }
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content: Text(
+                                            "Passwords must be atleast 6 characters"),
+                                        backgroundColor: purple,
+                                      ));
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text("Enter a valid Mail-Id"),
+                                      backgroundColor: purple,
+                                    ));
+                                  }
                                 }
-                              } else {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: Text("Passwords do not match"),
-                                  backgroundColor: purple,
-                                ));
-                              }
-                            } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(
-                                    "Passwords must be atleast 6 characters"),
-                                backgroundColor: purple,
-                              ));
-                            }
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("Enter a valid Mail-Id"),
-                              backgroundColor: purple,
-                            ));
-                          }
-                        }
-                      },
-                      child: Text(
-                        'Register',
-                        style: TextStyle(color: Colors.white, fontSize: 25.0),
-                      ),
-                    ),
-                  ),
+                              },
+                              child: Text(
+                                'Register',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 25.0),
+                              ),
+                            )
+                          : Center(
+                              child: CircularProgressIndicator(
+                                color: purple,
+                              ),
+                            )),
                 ],
               ),
             ),

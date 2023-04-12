@@ -40,6 +40,13 @@ class _$AnswerSerializer implements StructuredSerializer<Answer> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.userid;
+    if (value != null) {
+      result
+        ..add('userid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -66,6 +73,10 @@ class _$AnswerSerializer implements StructuredSerializer<Answer> {
           result.user = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'userid':
+          result.userid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
       }
     }
 
@@ -80,11 +91,13 @@ class _$Answer extends Answer {
   final String? queryid;
   @override
   final String? user;
+  @override
+  final String? userid;
 
   factory _$Answer([void Function(AnswerBuilder)? updates]) =>
       (new AnswerBuilder()..update(updates))._build();
 
-  _$Answer._({this.answer, this.queryid, this.user}) : super._();
+  _$Answer._({this.answer, this.queryid, this.user, this.userid}) : super._();
 
   @override
   Answer rebuild(void Function(AnswerBuilder) updates) =>
@@ -99,13 +112,15 @@ class _$Answer extends Answer {
     return other is Answer &&
         answer == other.answer &&
         queryid == other.queryid &&
-        user == other.user;
+        user == other.user &&
+        userid == other.userid;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, answer.hashCode), queryid.hashCode), user.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, answer.hashCode), queryid.hashCode), user.hashCode),
+        userid.hashCode));
   }
 
   @override
@@ -113,7 +128,8 @@ class _$Answer extends Answer {
     return (newBuiltValueToStringHelper(r'Answer')
           ..add('answer', answer)
           ..add('queryid', queryid)
-          ..add('user', user))
+          ..add('user', user)
+          ..add('userid', userid))
         .toString();
   }
 }
@@ -133,6 +149,10 @@ class AnswerBuilder implements Builder<Answer, AnswerBuilder> {
   String? get user => _$this._user;
   set user(String? user) => _$this._user = user;
 
+  String? _userid;
+  String? get userid => _$this._userid;
+  set userid(String? userid) => _$this._userid = userid;
+
   AnswerBuilder();
 
   AnswerBuilder get _$this {
@@ -141,6 +161,7 @@ class AnswerBuilder implements Builder<Answer, AnswerBuilder> {
       _answer = $v.answer;
       _queryid = $v.queryid;
       _user = $v.user;
+      _userid = $v.userid;
       _$v = null;
     }
     return this;
@@ -161,8 +182,9 @@ class AnswerBuilder implements Builder<Answer, AnswerBuilder> {
   Answer build() => _build();
 
   _$Answer _build() {
-    final _$result =
-        _$v ?? new _$Answer._(answer: answer, queryid: queryid, user: user);
+    final _$result = _$v ??
+        new _$Answer._(
+            answer: answer, queryid: queryid, user: user, userid: userid);
     replace(_$result);
     return _$result;
   }

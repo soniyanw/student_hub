@@ -20,6 +20,11 @@ class _CollaborateState extends State<Collaborate> {
     setState(() {});
   }
 
+  void _refresh() {
+    setState(() {});
+    return null;
+  }
+
   @override
   void initState() {
     method();
@@ -32,66 +37,75 @@ class _CollaborateState extends State<Collaborate> {
   Widget build(BuildContext context) {
     BuiltList? list = context.read<MyModel>().state.collaborations;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Collaborations"),
-        backgroundColor: purple,
-      ),
-      body: (list == null)
-          ? Center(child: Text("Nothing Yet"))
-          : Padding(
-              padding: const EdgeInsets.only(bottom: 50),
-              child: ListView.builder(
-                itemCount: list.length,
-                itemBuilder: (context, index) {
-                  return CollabBox(
-                      list[index].project,
-                      list[index].user,
-                      list[index].skills,
-                      list[index].offer,
-                      list[index].time,
-                      list[index].usermail);
-                },
+    return RefreshIndicator(
+      color: purple,
+      onRefresh: () {
+        _refresh();
+        return Future(() => null);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Collaborations"),
+          backgroundColor: purple,
+        ),
+        body: (list == null || list.isEmpty)
+            ? Center(child: Text("Nothing Yet"))
+            : Padding(
+                padding: const EdgeInsets.only(bottom: 50),
+                child: ListView.builder(
+                  itemCount: list.length,
+                  itemBuilder: (context, index) {
+                    return CollabBox(
+                        list[index].project,
+                        list[index].user,
+                        list[index].skills,
+                        list[index].offer,
+                        list[index].time,
+                        list[index].usermail);
+                  },
+                ),
               ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          color: purple,
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NeedColleague()));
+                  },
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Need Colleague",
+                      style: TextStyle(color: purple),
+                    ),
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => NeedProject()));
+                  },
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Need Project",
+                      style: TextStyle(color: purple),
+                    ),
+                  ),
+                ),
+              ],
             ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        color: purple,
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MaterialButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => NeedColleague()));
-                },
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Need Colleague",
-                    style: TextStyle(color: purple),
-                  ),
-                ),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => NeedProject()));
-                },
-                color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Need Project",
-                    style: TextStyle(color: purple),
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
       ),

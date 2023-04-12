@@ -63,6 +63,20 @@ class _$CollaborationsSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.userid;
+    if (value != null) {
+      result
+        ..add('userid')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.id;
+    if (value != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     return result;
   }
 
@@ -102,6 +116,14 @@ class _$CollaborationsSerializer
           result.usermail = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'userid':
+          result.userid = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
       }
     }
 
@@ -122,6 +144,10 @@ class _$Collaborations extends Collaborations {
   final String? time;
   @override
   final String? usermail;
+  @override
+  final String? userid;
+  @override
+  final String? id;
 
   factory _$Collaborations([void Function(CollaborationsBuilder)? updates]) =>
       (new CollaborationsBuilder()..update(updates))._build();
@@ -132,7 +158,9 @@ class _$Collaborations extends Collaborations {
       this.user,
       this.offer,
       this.time,
-      this.usermail})
+      this.usermail,
+      this.userid,
+      this.id})
       : super._();
 
   @override
@@ -152,7 +180,9 @@ class _$Collaborations extends Collaborations {
         user == other.user &&
         offer == other.offer &&
         time == other.time &&
-        usermail == other.usermail;
+        usermail == other.usermail &&
+        userid == other.userid &&
+        id == other.id;
   }
 
   @override
@@ -160,11 +190,15 @@ class _$Collaborations extends Collaborations {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, project.hashCode), skills.hashCode),
-                    user.hashCode),
-                offer.hashCode),
-            time.hashCode),
-        usermail.hashCode));
+                $jc(
+                    $jc(
+                        $jc($jc($jc(0, project.hashCode), skills.hashCode),
+                            user.hashCode),
+                        offer.hashCode),
+                    time.hashCode),
+                usermail.hashCode),
+            userid.hashCode),
+        id.hashCode));
   }
 
   @override
@@ -175,7 +209,9 @@ class _$Collaborations extends Collaborations {
           ..add('user', user)
           ..add('offer', offer)
           ..add('time', time)
-          ..add('usermail', usermail))
+          ..add('usermail', usermail)
+          ..add('userid', userid)
+          ..add('id', id))
         .toString();
   }
 }
@@ -208,6 +244,14 @@ class CollaborationsBuilder
   String? get usermail => _$this._usermail;
   set usermail(String? usermail) => _$this._usermail = usermail;
 
+  String? _userid;
+  String? get userid => _$this._userid;
+  set userid(String? userid) => _$this._userid = userid;
+
+  String? _id;
+  String? get id => _$this._id;
+  set id(String? id) => _$this._id = id;
+
   CollaborationsBuilder();
 
   CollaborationsBuilder get _$this {
@@ -219,6 +263,8 @@ class CollaborationsBuilder
       _offer = $v.offer;
       _time = $v.time;
       _usermail = $v.usermail;
+      _userid = $v.userid;
+      _id = $v.id;
       _$v = null;
     }
     return this;
@@ -246,7 +292,9 @@ class CollaborationsBuilder
             user: user,
             offer: offer,
             time: time,
-            usermail: usermail);
+            usermail: usermail,
+            userid: userid,
+            id: id);
     replace(_$result);
     return _$result;
   }

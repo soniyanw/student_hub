@@ -31,4 +31,5 @@ abstract class Appstate implements Built<Appstate, AppstateBuilder> {
   BuiltList<Queries>? get queries;
   BuiltList<Answer>? get answers;
   BuiltList<Feedbacks>? get feedbacks;
+  BuiltList<Collaborations>? get myCollaborations;
 }

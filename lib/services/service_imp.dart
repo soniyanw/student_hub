@@ -8,24 +8,26 @@ import 'package:project_inc/models/queries.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+bool loading = false;
+
 class ServiceImp implements Services {
   @override
-  void resetPass({String? email}) async {
+  Future<void> resetPass({String? email}) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email ?? '');
   }
 
-  void signin({String? mail, String? pass}) async {
+  Future<void> signin({String? mail, String? pass}) async {
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: mail ?? '', password: pass ?? '');
   }
 
   @override
-  void signout() async {
+  Future<void> signout() async {
     await FirebaseAuth.instance.signOut();
   }
 
   @override
-  void signup({String? name, String? mail, String? pass}) async {
+  Future<void> signup({String? name, String? mail, String? pass}) async {
     UserCredential userc;
     userc = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: mail ?? '', password: pass ?? '');
@@ -37,7 +39,7 @@ class ServiceImp implements Services {
         .signInWithEmailAndPassword(email: mail ?? '', password: pass ?? '');
   }
 
-  void postfeedback(String? feedback) async {
+  Future<void> postfeedback(String? feedback) async {
     final uidd = await FirebaseAuth.instance.currentUser!.uid;
     final data =
         await FirebaseFirestore.instance.collection('users').doc(uidd).get();
@@ -71,7 +73,7 @@ class ServiceImp implements Services {
     return data['mail'].toString();
   }
 
-  void postrequest(String? project, String skills, bool offer) async {
+  Future<void> postrequest(String? project, String skills, bool offer) async {
     final uidd = await FirebaseAuth.instance.currentUser!.uid;
     final data =
         await FirebaseFirestore.instance.collection('users').doc(uidd).get();
@@ -82,7 +84,9 @@ class ServiceImp implements Services {
       ..user = data['name'].toString()
       ..usermail = data['mail'].toString()
       ..offer = offer
+      ..userid = data['id'].toString()
       ..time = Timestamp.now().toDate().toString()
+      ..id = feeds.id.toString()
       ..skills = skills);
     feeds.set(newFeed.toJson());
   }
@@ -105,7 +109,36 @@ class ServiceImp implements Services {
     return list.toBuiltList();
   }
 
-  void postquery(String query, String link) async {
+  Future<void> deleteCollab(String collabid) async {
+    await FirebaseFirestore.instance
+        .collection('collaborations')
+        .doc(collabid)
+        .delete();
+  }
+
+  Future<BuiltList<Collaborations>> getMycollaborations() async {
+    final uidd = await FirebaseAuth.instance.currentUser!.uid;
+    final data =
+        await FirebaseFirestore.instance.collection('users').doc(uidd).get();
+    final QuerySnapshot<Map<String, dynamic>> _collectionRef =
+        await FirebaseFirestore.instance
+            .collection('collaborations')
+            .where('userid', isEqualTo: data['id'].toString())
+            .orderBy('time', descending: true)
+            .get();
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
+        _collectionRef.docs;
+    List<Collaborations> list = [];
+
+    snapshot.forEach((element) {
+      list.add(Collaborations.fromJson(element.data()));
+    });
+    print("collaborations");
+    print(list);
+    return list.toBuiltList();
+  }
+
+  Future<void> postquery(String query, String link) async {
     final uidd = await FirebaseAuth.instance.currentUser!.uid;
     final data =
         await FirebaseFirestore.instance.collection('users').doc(uidd).get();
@@ -138,7 +171,7 @@ class ServiceImp implements Services {
     return list.toBuiltList();
   }
 
-  void postans(String queryid, String ans) async {
+  Future<void> postans(String queryid, String ans) async {
     final uidd = await FirebaseAuth.instance.currentUser!.uid;
     final data =
         await FirebaseFirestore.instance.collection('users').doc(uidd).get();
@@ -146,6 +179,7 @@ class ServiceImp implements Services {
     Answer newFeed = Answer((b) => b
       ..queryid = queryid
       ..user = data['name'].toString()
+      ..userid = data['id'].toString()
       ..answer = ans);
     feeds.set(newFeed.toJson());
   }

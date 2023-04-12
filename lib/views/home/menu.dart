@@ -3,6 +3,7 @@ import 'package:project_inc/services/services.dart';
 import 'package:project_inc/views/auth/login_page.dart';
 import 'package:project_inc/views/collaboration/collaboration_page.dart';
 import 'package:project_inc/views/home/feedback_page.dart';
+import 'package:project_inc/views/home/my_posts_page.dart';
 import 'package:project_inc/views/home/profile_page.dart';
 
 class Menu extends StatelessWidget {
@@ -36,6 +37,12 @@ class Menu extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const Collaborate()),
           );
           break;
+        case 7:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MyPosts()),
+          );
+          break;
       }
     }
 
@@ -61,6 +68,36 @@ class Menu extends StatelessWidget {
                           ),
                           Text(
                             'Profile',
+                            style: styling,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        color: purple,
+                      )
+                    ],
+                  )),
+              PopupMenuItem<int>(
+                  value: 7,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.feed,
+                            color: purple,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            'My Posts',
                             style: styling,
                           ),
                         ],

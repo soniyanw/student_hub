@@ -80,56 +80,75 @@ class _MailOtpState extends State<MailOtp> {
                   height: 20.0,
                 ),
                 Container(
-                  width: double.infinity,
-                  height: 54.0,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(purple),
-                        shape: MaterialStateProperty.all(StadiumBorder())),
-                    onPressed: () {
-                      bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(enteredmail);
+                    width: double.infinity,
+                    height: 54.0,
+                    child: !loading
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(purple),
+                                shape:
+                                    MaterialStateProperty.all(StadiumBorder())),
+                            onPressed: () async {
+                              bool emailValid = RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(enteredmail);
 
-                      if (enteredmail == '') {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Fill the field properly"),
-                          backgroundColor: purple,
-                        ));
-                      } else {
-                        if (emailValid == true) {
-                          try {
-                            imp.resetPass(email: enteredmail);
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text("Reset link is sent to your mail"),
-                              backgroundColor: purple,
-                            ));
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Login()),
-                            );
-                          } on FirebaseException catch (e) {
-                            print(e);
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(e.toString()),
-                              backgroundColor: purple,
-                            ));
-                          }
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Enter a valid Mail-Id"),
-                            backgroundColor: purple,
-                          ));
-                        }
-                      }
-                    },
-                    child: Text(
-                      'Reset Password',
-                      style: TextStyle(color: Colors.white, fontSize: 25.0),
-                    ),
-                  ),
-                ),
+                              if (enteredmail == '') {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text("Fill the field properly"),
+                                  backgroundColor: purple,
+                                ));
+                              } else {
+                                if (emailValid == true) {
+                                  try {
+                                    setState(() {
+                                      loading = true;
+                                    });
+                                    await imp.resetPass(email: enteredmail);
+                                    setState(() {
+                                      loading = false;
+                                    });
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          "Reset link is sent to your mail"),
+                                      backgroundColor: purple,
+                                    ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Login()),
+                                    );
+                                  } on FirebaseException catch (e) {
+                                    print(e);
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(e.toString()),
+                                      backgroundColor: purple,
+                                    ));
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text("Enter a valid Mail-Id"),
+                                    backgroundColor: purple,
+                                  ));
+                                }
+                              }
+                            },
+                            child: Text(
+                              'Reset Password',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 25.0),
+                            ),
+                          )
+                        : Center(
+                            child: CircularProgressIndicator(
+                              color: purple,
+                            ),
+                          )),
               ],
             ),
           ),

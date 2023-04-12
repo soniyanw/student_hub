@@ -46,6 +46,13 @@ class MyModel extends StateNotifier<Appstate> with LocatorMixin {
     });
   }
 
+  Future<void> my_get_collab_list() async {
+    final BuiltList<Collaborations> a = await imp.getMycollaborations();
+    state = state.rebuild((p0) {
+      p0.myCollaborations = a.toBuilder();
+    });
+  }
+
   Future<void> get_query_list() async {
     final BuiltList<Queries> a = await imp.getqueries();
     state = state.rebuild((p0) {
