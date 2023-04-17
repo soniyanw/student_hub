@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/views/auth/login_page.dart';
 import 'package:project_inc/views/collaboration/collaboration_page.dart';
@@ -26,6 +27,8 @@ class Menu extends StatelessWidget {
           );
           break;
         case 5:
+          Services imp = new ServiceImp();
+          imp.signout();
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Login()),
