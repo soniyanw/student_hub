@@ -29,4 +29,5 @@ abstract class Collaborations
   String? get usermail;
   String? get userid;
   String? get id;
+  bool? get approved;
 }

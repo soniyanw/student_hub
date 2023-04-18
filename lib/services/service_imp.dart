@@ -84,6 +84,7 @@ class ServiceImp implements Services {
       ..user = data['name'].toString()
       ..usermail = data['mail'].toString()
       ..offer = offer
+      ..approved = false
       ..userid = data['id'].toString()
       ..time = Timestamp.now().toDate().toString()
       ..id = feeds.id.toString()
@@ -95,6 +96,7 @@ class ServiceImp implements Services {
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
         await FirebaseFirestore.instance
             .collection('collaborations')
+            .where('approved', isEqualTo: true)
             .orderBy('time', descending: true)
             .get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
