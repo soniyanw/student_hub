@@ -77,6 +77,13 @@ class _$CollaborationsSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.approved;
+    if (value != null) {
+      result
+        ..add('approved')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     return result;
   }
 
@@ -124,6 +131,10 @@ class _$CollaborationsSerializer
           result.id = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'approved':
+          result.approved = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
       }
     }
 
@@ -148,6 +159,8 @@ class _$Collaborations extends Collaborations {
   final String? userid;
   @override
   final String? id;
+  @override
+  final bool? approved;
 
   factory _$Collaborations([void Function(CollaborationsBuilder)? updates]) =>
       (new CollaborationsBuilder()..update(updates))._build();
@@ -160,7 +173,8 @@ class _$Collaborations extends Collaborations {
       this.time,
       this.usermail,
       this.userid,
-      this.id})
+      this.id,
+      this.approved})
       : super._();
 
   @override
@@ -182,7 +196,8 @@ class _$Collaborations extends Collaborations {
         time == other.time &&
         usermail == other.usermail &&
         userid == other.userid &&
-        id == other.id;
+        id == other.id &&
+        approved == other.approved;
   }
 
   @override
@@ -192,13 +207,15 @@ class _$Collaborations extends Collaborations {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, project.hashCode), skills.hashCode),
-                            user.hashCode),
-                        offer.hashCode),
-                    time.hashCode),
-                usermail.hashCode),
-            userid.hashCode),
-        id.hashCode));
+                        $jc(
+                            $jc($jc($jc(0, project.hashCode), skills.hashCode),
+                                user.hashCode),
+                            offer.hashCode),
+                        time.hashCode),
+                    usermail.hashCode),
+                userid.hashCode),
+            id.hashCode),
+        approved.hashCode));
   }
 
   @override
@@ -211,7 +228,8 @@ class _$Collaborations extends Collaborations {
           ..add('time', time)
           ..add('usermail', usermail)
           ..add('userid', userid)
-          ..add('id', id))
+          ..add('id', id)
+          ..add('approved', approved))
         .toString();
   }
 }
@@ -252,6 +270,10 @@ class CollaborationsBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
+  bool? _approved;
+  bool? get approved => _$this._approved;
+  set approved(bool? approved) => _$this._approved = approved;
+
   CollaborationsBuilder();
 
   CollaborationsBuilder get _$this {
@@ -265,6 +287,7 @@ class CollaborationsBuilder
       _usermail = $v.usermail;
       _userid = $v.userid;
       _id = $v.id;
+      _approved = $v.approved;
       _$v = null;
     }
     return this;
@@ -294,7 +317,8 @@ class CollaborationsBuilder
             time: time,
             usermail: usermail,
             userid: userid,
-            id: id);
+            id: id,
+            approved: approved);
     replace(_$result);
     return _$result;
   }
