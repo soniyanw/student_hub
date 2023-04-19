@@ -6,6 +6,9 @@ import 'package:project_inc/views/admin/admin_login_page.dart';
 import 'package:project_inc/views/auth/registernow_page.dart';
 import 'package:project_inc/views/auth/reset_password_page.dart';
 import 'package:project_inc/views/home/home_page.dart';
+import 'package:provider/provider.dart';
+
+import '../../view_model/changes.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -227,6 +230,10 @@ class _LoginState extends State<Login> {
                                         await imp.signin(
                                             mail: enteredmail,
                                             pass: enteredpass);
+                                        await context
+                                            .read<MyModel>()
+                                            .getdetails();
+
                                         setState(() {
                                           loading = false;
                                         });

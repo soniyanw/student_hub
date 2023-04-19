@@ -47,6 +47,7 @@ class ServiceImp implements Services {
         await FirebaseFirestore.instance.collection('feedbacks').doc();
     Feedbacks newFeed = Feedbacks((b) => b
       ..feedback = feedback
+      ..mail = data['mail']
       ..userid = data['id'].toString()
       ..name = data['name'].toString());
     feeds.set(newFeed.toJson());

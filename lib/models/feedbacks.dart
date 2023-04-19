@@ -1,4 +1,3 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:project_inc/models/serializers.dart';
@@ -21,5 +20,6 @@ abstract class Feedbacks implements Built<Feedbacks, FeedbacksBuilder> {
   static Serializer<Feedbacks> get serializer => _$feedbacksSerializer;
   String? get feedback;
   String? get name;
+  String? get mail;
   String? get userid;
 }

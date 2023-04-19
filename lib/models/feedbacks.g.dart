@@ -33,6 +33,13 @@ class _$FeedbacksSerializer implements StructuredSerializer<Feedbacks> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.mail;
+    if (value != null) {
+      result
+        ..add('mail')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.userid;
     if (value != null) {
       result
@@ -62,6 +69,10 @@ class _$FeedbacksSerializer implements StructuredSerializer<Feedbacks> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'mail':
+          result.mail = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'userid':
           result.userid = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -79,12 +90,14 @@ class _$Feedbacks extends Feedbacks {
   @override
   final String? name;
   @override
+  final String? mail;
+  @override
   final String? userid;
 
   factory _$Feedbacks([void Function(FeedbacksBuilder)? updates]) =>
       (new FeedbacksBuilder()..update(updates))._build();
 
-  _$Feedbacks._({this.feedback, this.name, this.userid}) : super._();
+  _$Feedbacks._({this.feedback, this.name, this.mail, this.userid}) : super._();
 
   @override
   Feedbacks rebuild(void Function(FeedbacksBuilder) updates) =>
@@ -99,13 +112,15 @@ class _$Feedbacks extends Feedbacks {
     return other is Feedbacks &&
         feedback == other.feedback &&
         name == other.name &&
+        mail == other.mail &&
         userid == other.userid;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, feedback.hashCode), name.hashCode), userid.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, feedback.hashCode), name.hashCode), mail.hashCode),
+        userid.hashCode));
   }
 
   @override
@@ -113,6 +128,7 @@ class _$Feedbacks extends Feedbacks {
     return (newBuiltValueToStringHelper(r'Feedbacks')
           ..add('feedback', feedback)
           ..add('name', name)
+          ..add('mail', mail)
           ..add('userid', userid))
         .toString();
   }
@@ -129,6 +145,10 @@ class FeedbacksBuilder implements Builder<Feedbacks, FeedbacksBuilder> {
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
 
+  String? _mail;
+  String? get mail => _$this._mail;
+  set mail(String? mail) => _$this._mail = mail;
+
   String? _userid;
   String? get userid => _$this._userid;
   set userid(String? userid) => _$this._userid = userid;
@@ -140,6 +160,7 @@ class FeedbacksBuilder implements Builder<Feedbacks, FeedbacksBuilder> {
     if ($v != null) {
       _feedback = $v.feedback;
       _name = $v.name;
+      _mail = $v.mail;
       _userid = $v.userid;
       _$v = null;
     }
@@ -162,7 +183,8 @@ class FeedbacksBuilder implements Builder<Feedbacks, FeedbacksBuilder> {
 
   _$Feedbacks _build() {
     final _$result = _$v ??
-        new _$Feedbacks._(feedback: feedback, name: name, userid: userid);
+        new _$Feedbacks._(
+            feedback: feedback, name: name, mail: mail, userid: userid);
     replace(_$result);
     return _$result;
   }
