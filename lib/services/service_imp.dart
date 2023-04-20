@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emailjs/emailjs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_inc/models/answer.dart';
 import 'package:project_inc/models/collaborationProjects.dart';
@@ -52,6 +53,36 @@ class ServiceImp implements Services {
       ..userid = data['id'].toString()
       ..name = data['name'].toString());
     feeds.set(newFeed.toJson());
+    try {
+      await EmailJS.send(
+        'service_4cm27gr',
+        'template_rltu71t',
+        {
+          'user_email': 'sonuvijay2003@gmail.com',
+          'message':
+              "A new feedback received from ${data['name']} as $feedback",
+        },
+        const Options(
+          publicKey: 'Z5XNaa37f2AsTnN2F',
+          privateKey: 'sbJrVsXTnJIwS3s2w_j5Q',
+        ),
+      );
+      print('SUCCESS!');
+    } catch (error) {
+      if (error is EmailJSResponseStatus) {
+        print('ERROR... ${error.status}: ${error.text}');
+      }
+      print(error.toString());
+    }
+    // await FirebaseFirestore.instance.collection('mail').add(
+    //   {
+    //     'to': "sonuvijay2003@gmail.com",
+    //     'message': {
+    //       'subject': "Received a feedback from ${data['name'].toString()}",
+    //       'text': "The feedback: $feedback",
+    //     }
+    //   },
+    // ).then((value) => print("Mail Delivered"));
   }
 
   Future<String> getcurrentuser_id() async {
