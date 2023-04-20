@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
+import 'package:project_inc/view_model/changes.dart';
+import 'package:provider/provider.dart';
 
 class MyNeedProjectBox extends StatefulWidget {
   final String project;
@@ -9,8 +11,9 @@ class MyNeedProjectBox extends StatefulWidget {
   final String time;
   final String mail;
   final String id;
-  MyNeedProjectBox(
-      this.project, this.name, this.skills, this.time, this.mail, this.id);
+  final bool approved;
+  MyNeedProjectBox(this.project, this.name, this.skills, this.time, this.mail,
+      this.id, this.approved);
 
   @override
   State<MyNeedProjectBox> createState() => _MyNeedProjectBoxState();
@@ -44,9 +47,19 @@ class _MyNeedProjectBoxState extends State<MyNeedProjectBox> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            widget.name + " needs a project",
-                            style: TextStyle(color: Colors.white),
+                          Row(
+                            children: [
+                              Text(
+                                "You needed a project ",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              widget.approved
+                                  ? Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                    )
+                                  : Container()
+                            ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -112,6 +125,8 @@ class _MyNeedProjectBoxState extends State<MyNeedProjectBox> {
                     MaterialButton(
                       onPressed: () async {
                         imp.delNeedProjPost(widget.id);
+                        await context.read<MyModel>().getMyNewProjectsPosts();
+                        setState(() {});
                         Navigator.pop(context);
                         setState(() {});
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

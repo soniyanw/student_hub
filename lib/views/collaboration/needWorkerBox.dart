@@ -9,8 +9,9 @@ class NeedWorkerBox extends StatefulWidget {
   final String time;
   final String mail;
   final int people;
-  NeedWorkerBox(
-      this.project, this.name, this.skills, this.time, this.mail, this.people);
+  final bool approved;
+  NeedWorkerBox(this.project, this.name, this.skills, this.time, this.mail,
+      this.people, this.approved);
 
   @override
   State<NeedWorkerBox> createState() => _NeedWorkerBoxState();
@@ -44,10 +45,20 @@ class _NeedWorkerBoxState extends State<NeedWorkerBox> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            widget.name +
-                                " needs ${widget.people} colleague(s)",
-                            style: TextStyle(color: Colors.white),
+                          Row(
+                            children: [
+                              Text(
+                                widget.name +
+                                    " needs ${widget.people} colleague(s) ",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              widget.approved
+                                  ? Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                    )
+                                  : Container()
+                            ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,

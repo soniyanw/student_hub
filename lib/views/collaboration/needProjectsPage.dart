@@ -4,6 +4,7 @@ import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:project_inc/views/collaboration/needProjectBox.dart';
 import 'package:project_inc/views/collaboration/newNeedProject.dart';
+import 'package:project_inc/views/collaboration/searchWorkers.dart';
 import 'package:provider/provider.dart';
 
 class NeedProjectsPage extends StatefulWidget {
@@ -46,6 +47,24 @@ class _NeedProjectsPageState extends State<NeedProjectsPage> {
         appBar: AppBar(
           title: Text("Find Workers"),
           backgroundColor: purple,
+          actions: [
+            InkWell(
+              onTap: () {
+                showSearch(
+                  context: context,
+                  delegate: WorkerCustomDelegate(),
+                );
+              },
+              child: Container(
+                width: 50,
+                height: 50,
+                child: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+              ),
+            )
+          ],
         ),
         body: (list == null || list.isEmpty)
             ? Center(child: Text("Nothing Yet"))
@@ -59,7 +78,8 @@ class _NeedProjectsPageState extends State<NeedProjectsPage> {
                         list[index].user,
                         list[index].skills,
                         list[index].time,
-                        list[index].usermail);
+                        list[index].usermail,
+                        list[index].approved);
                   },
                 ),
               ),

@@ -3,6 +3,7 @@ import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/views/home/menu.dart';
 import 'package:project_inc/views/queries/queries_page.dart';
+import 'package:project_inc/views/queries/search_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, this.title}) : super(key: key);
@@ -32,6 +33,7 @@ class _HomePageState extends State<HomePage> {
               title: Text("Student-Hub"),
               backgroundColor: purple,
               actions: [
+                Search(),
                 Menu(),
                 SizedBox(
                   width: 20,
@@ -71,6 +73,7 @@ class _LoggedState extends State<Logged> {
         title: Text("Student-Hub Queries"),
         backgroundColor: purple,
         actions: [
+          Search(),
           Menu(),
           SizedBox(
             width: 20,

@@ -116,7 +116,7 @@ class ServiceImp implements Services {
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
         await FirebaseFirestore.instance
             .collection('needProjects')
-            .where('approved', isEqualTo: false)
+            .orderBy('approved', descending: true)
             .orderBy('time', descending: true)
             .get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
@@ -135,7 +135,7 @@ class ServiceImp implements Services {
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
         await FirebaseFirestore.instance
             .collection('needWorkers')
-            .where('approved', isEqualTo: false)
+            .orderBy('approved', descending: true)
             .orderBy('time', descending: true)
             .get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
@@ -171,6 +171,20 @@ class ServiceImp implements Services {
         .update({"people": people});
   }
 
+  Future<void> approveNeedProject(String collabid) async {
+    await FirebaseFirestore.instance
+        .collection('needProjects')
+        .doc(collabid)
+        .update({"approved": true});
+  }
+
+  Future<void> approveNeedWorker(String collabid) async {
+    await FirebaseFirestore.instance
+        .collection('needWorkers')
+        .doc(collabid)
+        .update({"approved": true});
+  }
+
   Future<BuiltList<CollaborationProjects>> getMyNewProjectsPosts() async {
     final uidd = await FirebaseAuth.instance.currentUser!.uid;
     final data =
@@ -179,6 +193,7 @@ class ServiceImp implements Services {
         await FirebaseFirestore.instance
             .collection('needProjects')
             .where('userid', isEqualTo: data['id'].toString())
+            .orderBy('approved', descending: true)
             .orderBy('time', descending: true)
             .get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
@@ -201,6 +216,7 @@ class ServiceImp implements Services {
         await FirebaseFirestore.instance
             .collection('needWorkers')
             .where('userid', isEqualTo: data['id'].toString())
+            .orderBy('approved', descending: true)
             .orderBy('time', descending: true)
             .get();
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
@@ -209,6 +225,43 @@ class ServiceImp implements Services {
 
     snapshot.forEach((element) {
       list.add(Collaborations.fromJson(element.data()));
+    });
+    print("collaborations");
+    print(list);
+    return list.toBuiltList();
+  }
+
+  Future<BuiltList<Collaborations>> getAdminNewWorkersPosts() async {
+    final QuerySnapshot<Map<String, dynamic>> _collectionRef =
+        await FirebaseFirestore.instance
+            .collection('needWorkers')
+            .where('approved', isEqualTo: false)
+            .orderBy('time', descending: false)
+            .get();
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
+        _collectionRef.docs;
+    List<Collaborations> list = [];
+
+    snapshot.forEach((element) {
+      list.add(Collaborations.fromJson(element.data()));
+    });
+    print("collaborations");
+    print(list);
+    return list.toBuiltList();
+  }
+
+  Future<BuiltList<CollaborationProjects>> getAdminNewProjectsPosts() async {
+    final QuerySnapshot<Map<String, dynamic>> _collectionRef =
+        await FirebaseFirestore.instance
+            .collection('needProjects')
+            .where('approved', isEqualTo: false)
+            .orderBy('time', descending: false)
+            .get();
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
+        _collectionRef.docs;
+    List<CollaborationProjects> list = [];
+    snapshot.forEach((element) {
+      list.add(CollaborationProjects.fromJson(element.data()));
     });
     print("collaborations");
     print(list);

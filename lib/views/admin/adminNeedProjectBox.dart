@@ -4,32 +4,23 @@ import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:provider/provider.dart';
 
-class MyNeedWorkerBox extends StatefulWidget {
+class AdminNeedProjectBox extends StatefulWidget {
   final String project;
   final String name;
   final String skills;
   final String time;
   final String mail;
-  final int people;
   final String id;
   final bool approved;
-  MyNeedWorkerBox(this.project, this.name, this.skills, this.time, this.mail,
-      this.people, this.id, this.approved);
+  AdminNeedProjectBox(this.project, this.name, this.skills, this.time,
+      this.mail, this.id, this.approved);
 
   @override
-  State<MyNeedWorkerBox> createState() => _MyNeedWorkerBoxState();
+  State<AdminNeedProjectBox> createState() => _AdminNeedProjectBoxState();
 }
 
-class _MyNeedWorkerBoxState extends State<MyNeedWorkerBox> {
-  late int people;
-  @override
-  void initState() {
-    people = widget.people;
-    super.initState();
-  }
-
+class _AdminNeedProjectBoxState extends State<AdminNeedProjectBox> {
   Services imp = ServiceImp();
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -59,15 +50,10 @@ class _MyNeedWorkerBoxState extends State<MyNeedWorkerBox> {
                           Row(
                             children: [
                               Text(
-                                "You needed ${widget.people} colleague(s)",
+                                widget.name + " needs a project",
                                 style: TextStyle(color: Colors.white),
                               ),
-                              widget.approved
-                                  ? Icon(
-                                      Icons.star,
-                                      color: Colors.white,
-                                    )
-                                  : Container()
+                              widget.approved ? Icon(Icons.star) : Container()
                             ],
                           ),
                           Column(
@@ -96,11 +82,12 @@ class _MyNeedWorkerBoxState extends State<MyNeedWorkerBox> {
                       child: Column(
                         children: [
                           Text(
-                            "Project Details:",
+                            "Previous Projects:",
                             style: TextStyle(
-                                color: Colors.white,
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -113,11 +100,12 @@ class _MyNeedWorkerBoxState extends State<MyNeedWorkerBox> {
                             height: 8,
                           ),
                           Text(
-                            "Skills Needed:",
+                            "Skills Possessed:",
                             style: TextStyle(
-                                color: Colors.white,
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -129,89 +117,19 @@ class _MyNeedWorkerBoxState extends State<MyNeedWorkerBox> {
                         ],
                       ),
                     ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Edit No of workers:",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            SizedBox(
-                              width: 18.0,
-                            ),
-                            Container(
-                              color: Colors.white,
-                              child: DropdownButton<int>(
-                                value: people,
-                                items: [
-                                  DropdownMenuItem(
-                                    value: 1,
-                                    child: Text('1'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 2,
-                                    child: Text('2'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 3,
-                                    child: Text('3'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 4,
-                                    child: Text('4'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 5,
-                                    child: Text('5'),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  setState(() {
-                                    people = value?.toInt() ?? 1;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                     MaterialButton(
                       onPressed: () async {
-                        imp.update(widget.id, people);
-                        await context.read<MyModel>().getMyNewWorkersPosts();
-                        setState(() {});
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Edited Successfully",
-                              style: styling,
-                            ),
-                          ),
-                          backgroundColor: Colors.white,
-                        ));
-                      },
-                      color: Colors.white,
-                      child: Text(
-                        "Confirm Edit",
-                        style: styling,
-                      ),
-                    ),
-                    MaterialButton(
-                      onPressed: () async {
-                        imp.delNeedWorkerPost(widget.id);
-                        await context.read<MyModel>().getMyNewWorkersPosts();
+                        imp.approveNeedProject(widget.id);
+                        await context
+                            .read<MyModel>()
+                            .getAdminNewProjectsPosts();
 
                         setState(() {});
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Deleted Successfully",
+                              "Approved Successfully",
                               style: styling,
                             ),
                           ),
@@ -220,7 +138,7 @@ class _MyNeedWorkerBoxState extends State<MyNeedWorkerBox> {
                       },
                       color: Colors.white,
                       child: Text(
-                        "Delete",
+                        "Approve",
                         style: styling,
                       ),
                     ),

@@ -59,7 +59,8 @@ class _MyNeedProjectsPageState extends State<MyNeedProjectsPage> {
                         list[index].skills,
                         list[index].time,
                         list[index].usermail,
-                        list[index].id);
+                        list[index].id,
+                        list[index].approved);
                   },
                 ),
               ),

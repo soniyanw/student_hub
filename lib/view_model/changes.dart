@@ -69,6 +69,21 @@ class MyModel extends StateNotifier<Appstate> with LocatorMixin {
     });
   }
 
+  Future<void> getAdminNewProjectsPosts() async {
+    final BuiltList<CollaborationProjects> a =
+        await imp.getAdminNewProjectsPosts();
+    state = state.rebuild((p0) {
+      p0.adminNeedProjectPosts = a.toBuilder();
+    });
+  }
+
+  Future<void> getAdminNewWorkersPosts() async {
+    final BuiltList<Collaborations> a = await imp.getAdminNewWorkersPosts();
+    state = state.rebuild((p0) {
+      p0.adminNeedWorkerProjects = a.toBuilder();
+    });
+  }
+
   Future<void> getMyQueries() async {
     final BuiltList<Queries> a = await imp.getMyQueries();
     state = state.rebuild((p0) {

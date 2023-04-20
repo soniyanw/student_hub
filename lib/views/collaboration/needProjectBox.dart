@@ -8,7 +8,9 @@ class NeedProjectBox extends StatefulWidget {
   final String skills;
   final String time;
   final String mail;
-  NeedProjectBox(this.project, this.name, this.skills, this.time, this.mail);
+  final bool approved;
+  NeedProjectBox(this.project, this.name, this.skills, this.time, this.mail,
+      this.approved);
 
   @override
   State<NeedProjectBox> createState() => _NeedProjectBoxState();
@@ -42,9 +44,19 @@ class _NeedProjectBoxState extends State<NeedProjectBox> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            widget.name + " needs a project",
-                            style: TextStyle(color: Colors.white),
+                          Row(
+                            children: [
+                              Text(
+                                widget.name + " needs a project ",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              widget.approved
+                                  ? Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                    )
+                                  : Container()
+                            ],
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,

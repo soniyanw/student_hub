@@ -2,19 +2,19 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
-import 'package:project_inc/views/my_posts/myNeedWorkerBox.dart';
+import 'package:project_inc/views/admin/adminNeedWorkersBox.dart';
 import 'package:provider/provider.dart';
 
-class MyNeedWorkersPage extends StatefulWidget {
-  const MyNeedWorkersPage({Key? key}) : super(key: key);
+class ApproveProjects extends StatefulWidget {
+  const ApproveProjects({Key? key}) : super(key: key);
 
   @override
-  State<MyNeedWorkersPage> createState() => _MyNeedWorkersPageState();
+  State<ApproveProjects> createState() => _ApproveProjectsState();
 }
 
-class _MyNeedWorkersPageState extends State<MyNeedWorkersPage> {
+class _ApproveProjectsState extends State<ApproveProjects> {
   Future<void> method() async {
-    await context.read<MyModel>().getMyNewWorkersPosts();
+    await context.read<MyModel>().getAdminNewWorkersPosts();
     setState(() {});
   }
 
@@ -33,7 +33,7 @@ class _MyNeedWorkersPageState extends State<MyNeedWorkersPage> {
 
   @override
   Widget build(BuildContext context) {
-    BuiltList? list = context.read<MyModel>().state.myNeedWorkerProjects;
+    BuiltList? list = context.read<MyModel>().state.adminNeedWorkerProjects;
 
     return RefreshIndicator(
       color: purple,
@@ -43,7 +43,7 @@ class _MyNeedWorkersPageState extends State<MyNeedWorkersPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("My Offers"),
+          title: Text("Approve Projects"),
           backgroundColor: purple,
         ),
         body: (list == null || list.isEmpty)
@@ -53,7 +53,7 @@ class _MyNeedWorkersPageState extends State<MyNeedWorkersPage> {
                 child: ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return MyNeedWorkerBox(
+                    return AdminNeedWorkerBox(
                         list[index].project,
                         list[index].user,
                         list[index].skills,

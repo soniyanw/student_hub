@@ -108,6 +108,22 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
             specifiedType: const FullType(
                 BuiltList, const [const FullType(CollaborationProjects)])));
     }
+    value = object.adminNeedProjectPosts;
+    if (value != null) {
+      result
+        ..add('adminNeedProjectPosts')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(CollaborationProjects)])));
+    }
+    value = object.adminNeedWorkerProjects;
+    if (value != null) {
+      result
+        ..add('adminNeedWorkerProjects')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(Collaborations)])));
+    }
     return result;
   }
 
@@ -186,6 +202,18 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
                 const FullType(CollaborationProjects)
               ]))! as BuiltList<Object?>);
           break;
+        case 'adminNeedProjectPosts':
+          result.adminNeedProjectPosts.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(CollaborationProjects)
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'adminNeedWorkerProjects':
+          result.adminNeedWorkerProjects.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Collaborations)]))!
+              as BuiltList<Object?>);
+          break;
       }
     }
 
@@ -218,6 +246,10 @@ class _$Appstate extends Appstate {
   final BuiltList<Queries>? myQueries;
   @override
   final BuiltList<CollaborationProjects>? myNeedProjectPosts;
+  @override
+  final BuiltList<CollaborationProjects>? adminNeedProjectPosts;
+  @override
+  final BuiltList<Collaborations>? adminNeedWorkerProjects;
 
   factory _$Appstate([void Function(AppstateBuilder)? updates]) =>
       (new AppstateBuilder()..update(updates))._build();
@@ -234,7 +266,9 @@ class _$Appstate extends Appstate {
       this.feedbacks,
       this.myNeedWorkerProjects,
       this.myQueries,
-      this.myNeedProjectPosts})
+      this.myNeedProjectPosts,
+      this.adminNeedProjectPosts,
+      this.adminNeedWorkerProjects})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         needProjects, r'Appstate', 'needProjects');
@@ -262,7 +296,9 @@ class _$Appstate extends Appstate {
         feedbacks == other.feedbacks &&
         myNeedWorkerProjects == other.myNeedWorkerProjects &&
         myQueries == other.myQueries &&
-        myNeedProjectPosts == other.myNeedProjectPosts;
+        myNeedProjectPosts == other.myNeedProjectPosts &&
+        adminNeedProjectPosts == other.adminNeedProjectPosts &&
+        adminNeedWorkerProjects == other.adminNeedWorkerProjects;
   }
 
   @override
@@ -277,18 +313,24 @@ class _$Appstate extends Appstate {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc($jc(0, descrip.hashCode),
-                                                name.hashCode),
-                                            id.hashCode),
-                                        mail.hashCode),
-                                    needworkers.hashCode),
-                                needProjects.hashCode),
-                            queries.hashCode),
-                        answers.hashCode),
-                    feedbacks.hashCode),
-                myNeedWorkerProjects.hashCode),
-            myQueries.hashCode),
-        myNeedProjectPosts.hashCode));
+                                            $jc(
+                                                $jc(
+                                                    $jc(
+                                                        $jc(0,
+                                                            descrip.hashCode),
+                                                        name.hashCode),
+                                                    id.hashCode),
+                                                mail.hashCode),
+                                            needworkers.hashCode),
+                                        needProjects.hashCode),
+                                    queries.hashCode),
+                                answers.hashCode),
+                            feedbacks.hashCode),
+                        myNeedWorkerProjects.hashCode),
+                    myQueries.hashCode),
+                myNeedProjectPosts.hashCode),
+            adminNeedProjectPosts.hashCode),
+        adminNeedWorkerProjects.hashCode));
   }
 
   @override
@@ -305,7 +347,9 @@ class _$Appstate extends Appstate {
           ..add('feedbacks', feedbacks)
           ..add('myNeedWorkerProjects', myNeedWorkerProjects)
           ..add('myQueries', myQueries)
-          ..add('myNeedProjectPosts', myNeedProjectPosts))
+          ..add('myNeedProjectPosts', myNeedProjectPosts)
+          ..add('adminNeedProjectPosts', adminNeedProjectPosts)
+          ..add('adminNeedWorkerProjects', adminNeedWorkerProjects))
         .toString();
   }
 }
@@ -376,6 +420,21 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
           ListBuilder<CollaborationProjects>? myNeedProjectPosts) =>
       _$this._myNeedProjectPosts = myNeedProjectPosts;
 
+  ListBuilder<CollaborationProjects>? _adminNeedProjectPosts;
+  ListBuilder<CollaborationProjects> get adminNeedProjectPosts =>
+      _$this._adminNeedProjectPosts ??=
+          new ListBuilder<CollaborationProjects>();
+  set adminNeedProjectPosts(
+          ListBuilder<CollaborationProjects>? adminNeedProjectPosts) =>
+      _$this._adminNeedProjectPosts = adminNeedProjectPosts;
+
+  ListBuilder<Collaborations>? _adminNeedWorkerProjects;
+  ListBuilder<Collaborations> get adminNeedWorkerProjects =>
+      _$this._adminNeedWorkerProjects ??= new ListBuilder<Collaborations>();
+  set adminNeedWorkerProjects(
+          ListBuilder<Collaborations>? adminNeedWorkerProjects) =>
+      _$this._adminNeedWorkerProjects = adminNeedWorkerProjects;
+
   AppstateBuilder();
 
   AppstateBuilder get _$this {
@@ -393,6 +452,8 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
       _myNeedWorkerProjects = $v.myNeedWorkerProjects?.toBuilder();
       _myQueries = $v.myQueries?.toBuilder();
       _myNeedProjectPosts = $v.myNeedProjectPosts?.toBuilder();
+      _adminNeedProjectPosts = $v.adminNeedProjectPosts?.toBuilder();
+      _adminNeedWorkerProjects = $v.adminNeedWorkerProjects?.toBuilder();
       _$v = null;
     }
     return this;
@@ -428,7 +489,9 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
               feedbacks: _feedbacks?.build(),
               myNeedWorkerProjects: _myNeedWorkerProjects?.build(),
               myQueries: _myQueries?.build(),
-              myNeedProjectPosts: _myNeedProjectPosts?.build());
+              myNeedProjectPosts: _myNeedProjectPosts?.build(),
+              adminNeedProjectPosts: _adminNeedProjectPosts?.build(),
+              adminNeedWorkerProjects: _adminNeedWorkerProjects?.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -448,6 +511,10 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
         _myQueries?.build();
         _$failedField = 'myNeedProjectPosts';
         _myNeedProjectPosts?.build();
+        _$failedField = 'adminNeedProjectPosts';
+        _adminNeedProjectPosts?.build();
+        _$failedField = 'adminNeedWorkerProjects';
+        _adminNeedWorkerProjects?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Appstate', _$failedField, e.toString());

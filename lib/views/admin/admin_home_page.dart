@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
-import 'package:project_inc/views/auth/login_page.dart';
+import 'package:project_inc/views/admin/admin_menu.dart';
 import 'package:provider/provider.dart';
 
 class Feedbacks extends StatefulWidget {
@@ -38,18 +38,10 @@ class _FeedbacksState extends State<Feedbacks> {
         title: Text("Feedbacks"),
         backgroundColor: purple,
         actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                  (Route<dynamic> route) => false,
-                );
-              },
-              icon: Icon(
-                Icons.logout,
-                color: Colors.white,
-              ))
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AdminMenu(),
+          ),
         ],
       ),
       body: (list == null || list.isEmpty)

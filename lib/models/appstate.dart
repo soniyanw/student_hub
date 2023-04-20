@@ -36,4 +36,6 @@ abstract class Appstate implements Built<Appstate, AppstateBuilder> {
   BuiltList<Collaborations>? get myNeedWorkerProjects;
   BuiltList<Queries>? get myQueries;
   BuiltList<CollaborationProjects>? get myNeedProjectPosts;
+  BuiltList<CollaborationProjects>? get adminNeedProjectPosts;
+  BuiltList<Collaborations>? get adminNeedWorkerProjects;
 }

@@ -20,6 +20,10 @@ abstract class Services {
   Future<BuiltList<CollaborationProjects>> getMyNewProjectsPosts();
   Future<String> getcurrentuser_name();
   Future<void> update(String collabid, int people);
+  Future<BuiltList<CollaborationProjects>> getAdminNewProjectsPosts();
+  Future<BuiltList<Collaborations>> getAdminNewWorkersPosts();
+  Future<void> approveNeedProject(String collabid);
+  Future<void> approveNeedWorker(String collabid);
   Future<void> delNeedProjPost(String collabid);
   Future<void> delNeedWorkerPost(String collabid);
   Future<void> needWorker(String? project, String skills, int people);
