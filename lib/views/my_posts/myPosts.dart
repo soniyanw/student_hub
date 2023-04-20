@@ -15,6 +15,7 @@ class _MyPostsState extends State<MyPosts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple[100],
       appBar: AppBar(
         title: Text("My Posts"),
         backgroundColor: purple,

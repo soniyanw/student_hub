@@ -127,8 +127,6 @@ class _MyNeedProjectBoxState extends State<MyNeedProjectBox> {
                         imp.delNeedProjPost(widget.id);
                         await context.read<MyModel>().getMyNewProjectsPosts();
                         setState(() {});
-                        Navigator.pop(context);
-                        setState(() {});
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Padding(
                             padding: const EdgeInsets.all(8.0),
