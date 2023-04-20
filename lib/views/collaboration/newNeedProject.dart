@@ -4,14 +4,14 @@ import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:provider/provider.dart';
 
-class NeedProject extends StatefulWidget {
-  const NeedProject({Key? key}) : super(key: key);
+class NewNeedProject extends StatefulWidget {
+  const NewNeedProject({Key? key}) : super(key: key);
 
   @override
-  _NeedProjectState createState() => _NeedProjectState();
+  _NewNeedProjectState createState() => _NewNeedProjectState();
 }
 
-class _NeedProjectState extends State<NeedProject> {
+class _NewNeedProjectState extends State<NewNeedProject> {
   Services imp = new ServiceImp();
   bool p = true;
   bool p1 = true;
@@ -143,10 +143,10 @@ class _NeedProjectState extends State<NeedProject> {
                                   setState(() {
                                     loading = true;
                                   });
-                                  await imp.postrequest(project, skills, true);
+                                  await imp.needProject(project, skills);
                                   await context
                                       .read<MyModel>()
-                                      .get_collab_list();
+                                      .getNeedProjectsPosts();
                                   setState(() {
                                     loading = false;
                                   });

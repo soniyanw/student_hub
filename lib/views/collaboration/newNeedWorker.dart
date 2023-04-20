@@ -4,21 +4,21 @@ import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:provider/provider.dart';
 
-class NeedColleague extends StatefulWidget {
-  const NeedColleague({Key? key}) : super(key: key);
+class NewNeedWorker extends StatefulWidget {
+  const NewNeedWorker({Key? key}) : super(key: key);
 
   @override
-  _NeedColleagueState createState() => _NeedColleagueState();
+  _NewNeedWorkerState createState() => _NewNeedWorkerState();
 }
 
-class _NeedColleagueState extends State<NeedColleague> {
+class _NewNeedWorkerState extends State<NewNeedWorker> {
   Services imp = new ServiceImp();
   bool p = true;
   bool p1 = true;
-
   var project = '';
   var skills = '';
   var newname;
+  int people = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +118,51 @@ class _NeedColleagueState extends State<NeedColleague> {
                     ),
                   ),
                   SizedBox(
+                    height: 18.0,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "No of Colleagues Needed:",
+                        style: TextStyle(color: purple),
+                      ),
+                      SizedBox(
+                        width: 18.0,
+                      ),
+                      DropdownButton<int>(
+                        value: people,
+                        items: [
+                          DropdownMenuItem(
+                            value: 1,
+                            child: Text('1'),
+                          ),
+                          DropdownMenuItem(
+                            value: 2,
+                            child: Text('2'),
+                          ),
+                          DropdownMenuItem(
+                            value: 3,
+                            child: Text('3'),
+                          ),
+                          DropdownMenuItem(
+                            value: 4,
+                            child: Text('4'),
+                          ),
+                          DropdownMenuItem(
+                            value: 5,
+                            child: Text('5'),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          // update people variable when value changes
+                          setState(() {
+                            people = value?.toInt() ?? 1;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(
                     height: 48.0,
                   ),
                   Container(
@@ -142,10 +187,10 @@ class _NeedColleagueState extends State<NeedColleague> {
                                   setState(() {
                                     loading = true;
                                   });
-                                  await imp.postrequest(project, skills, false);
+                                  await imp.needWorker(project, skills, people);
                                   await context
                                       .read<MyModel>()
-                                      .get_collab_list();
+                                      .getNeedWorkersPosts();
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
                                     content:

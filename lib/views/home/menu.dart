@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/views/auth/login_page.dart';
-import 'package:project_inc/views/collaboration/collaboration_page.dart';
+import 'package:project_inc/views/collaboration/needProjectsPage.dart';
+import 'package:project_inc/views/collaboration/needWorkersPage.dart';
 import 'package:project_inc/views/home/feedback_page.dart';
-import 'package:project_inc/views/home/my_posts_page.dart';
 import 'package:project_inc/views/home/profile_page.dart';
+import 'package:project_inc/views/my_posts/myPosts.dart';
 
 class Menu extends StatelessWidget {
   const Menu({Key? key}) : super(key: key);
@@ -37,7 +38,13 @@ class Menu extends StatelessWidget {
         case 6:
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const Collaborate()),
+            MaterialPageRoute(builder: (context) => const NeedProjectsPage()),
+          );
+          break;
+        case 8:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const NeedWorkersPage()),
           );
           break;
         case 7:
@@ -130,7 +137,37 @@ class Menu extends StatelessWidget {
                             width: 20,
                           ),
                           Text(
-                            'Collaboration',
+                            'Find Worker',
+                            style: styling,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Divider(
+                        color: purple,
+                      )
+                    ],
+                  )),
+              PopupMenuItem<int>(
+                  value: 8,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.work,
+                            color: purple,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            'Find Projects',
                             style: styling,
                           ),
                         ],

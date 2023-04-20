@@ -24,10 +24,10 @@ abstract class Collaborations
   String? get project;
   String? get skills;
   String? get user;
-  bool? get offer;
   String? get time;
   String? get usermail;
   String? get userid;
   String? get id;
   bool? get approved;
+  int? get people;
 }

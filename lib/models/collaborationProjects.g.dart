@@ -1,23 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'collaborations.dart';
+part of 'collaborationProjects.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<Collaborations> _$collaborationsSerializer =
-    new _$CollaborationsSerializer();
+Serializer<CollaborationProjects> _$collaborationProjectsSerializer =
+    new _$CollaborationProjectsSerializer();
 
-class _$CollaborationsSerializer
-    implements StructuredSerializer<Collaborations> {
+class _$CollaborationProjectsSerializer
+    implements StructuredSerializer<CollaborationProjects> {
   @override
-  final Iterable<Type> types = const [Collaborations, _$Collaborations];
+  final Iterable<Type> types = const [
+    CollaborationProjects,
+    _$CollaborationProjects
+  ];
   @override
-  final String wireName = 'Collaborations';
+  final String wireName = 'CollaborationProjects';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, Collaborations object,
+  Iterable<Object?> serialize(
+      Serializers serializers, CollaborationProjects object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
@@ -77,20 +81,14 @@ class _$CollaborationsSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.people;
-    if (value != null) {
-      result
-        ..add('people')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
     return result;
   }
 
   @override
-  Collaborations deserialize(
+  CollaborationProjects deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new CollaborationsBuilder();
+    final result = new CollaborationProjectsBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -130,10 +128,6 @@ class _$CollaborationsSerializer
           result.approved = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool?;
           break;
-        case 'people':
-          result.people = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
       }
     }
 
@@ -141,7 +135,7 @@ class _$CollaborationsSerializer
   }
 }
 
-class _$Collaborations extends Collaborations {
+class _$CollaborationProjects extends CollaborationProjects {
   @override
   final String? project;
   @override
@@ -158,13 +152,12 @@ class _$Collaborations extends Collaborations {
   final String? id;
   @override
   final bool? approved;
-  @override
-  final int? people;
 
-  factory _$Collaborations([void Function(CollaborationsBuilder)? updates]) =>
-      (new CollaborationsBuilder()..update(updates))._build();
+  factory _$CollaborationProjects(
+          [void Function(CollaborationProjectsBuilder)? updates]) =>
+      (new CollaborationProjectsBuilder()..update(updates))._build();
 
-  _$Collaborations._(
+  _$CollaborationProjects._(
       {this.project,
       this.skills,
       this.user,
@@ -172,22 +165,22 @@ class _$Collaborations extends Collaborations {
       this.usermail,
       this.userid,
       this.id,
-      this.approved,
-      this.people})
+      this.approved})
       : super._();
 
   @override
-  Collaborations rebuild(void Function(CollaborationsBuilder) updates) =>
+  CollaborationProjects rebuild(
+          void Function(CollaborationProjectsBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CollaborationsBuilder toBuilder() =>
-      new CollaborationsBuilder()..replace(this);
+  CollaborationProjectsBuilder toBuilder() =>
+      new CollaborationProjectsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Collaborations &&
+    return other is CollaborationProjects &&
         project == other.project &&
         skills == other.skills &&
         user == other.user &&
@@ -195,8 +188,7 @@ class _$Collaborations extends Collaborations {
         usermail == other.usermail &&
         userid == other.userid &&
         id == other.id &&
-        approved == other.approved &&
-        people == other.people;
+        approved == other.approved;
   }
 
   @override
@@ -206,20 +198,18 @@ class _$Collaborations extends Collaborations {
             $jc(
                 $jc(
                     $jc(
-                        $jc(
-                            $jc($jc($jc(0, project.hashCode), skills.hashCode),
-                                user.hashCode),
-                            time.hashCode),
-                        usermail.hashCode),
-                    userid.hashCode),
-                id.hashCode),
-            approved.hashCode),
-        people.hashCode));
+                        $jc($jc($jc(0, project.hashCode), skills.hashCode),
+                            user.hashCode),
+                        time.hashCode),
+                    usermail.hashCode),
+                userid.hashCode),
+            id.hashCode),
+        approved.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'Collaborations')
+    return (newBuiltValueToStringHelper(r'CollaborationProjects')
           ..add('project', project)
           ..add('skills', skills)
           ..add('user', user)
@@ -227,15 +217,14 @@ class _$Collaborations extends Collaborations {
           ..add('usermail', usermail)
           ..add('userid', userid)
           ..add('id', id)
-          ..add('approved', approved)
-          ..add('people', people))
+          ..add('approved', approved))
         .toString();
   }
 }
 
-class CollaborationsBuilder
-    implements Builder<Collaborations, CollaborationsBuilder> {
-  _$Collaborations? _$v;
+class CollaborationProjectsBuilder
+    implements Builder<CollaborationProjects, CollaborationProjectsBuilder> {
+  _$CollaborationProjects? _$v;
 
   String? _project;
   String? get project => _$this._project;
@@ -269,13 +258,9 @@ class CollaborationsBuilder
   bool? get approved => _$this._approved;
   set approved(bool? approved) => _$this._approved = approved;
 
-  int? _people;
-  int? get people => _$this._people;
-  set people(int? people) => _$this._people = people;
+  CollaborationProjectsBuilder();
 
-  CollaborationsBuilder();
-
-  CollaborationsBuilder get _$this {
+  CollaborationProjectsBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
       _project = $v.project;
@@ -286,29 +271,28 @@ class CollaborationsBuilder
       _userid = $v.userid;
       _id = $v.id;
       _approved = $v.approved;
-      _people = $v.people;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(Collaborations other) {
+  void replace(CollaborationProjects other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$Collaborations;
+    _$v = other as _$CollaborationProjects;
   }
 
   @override
-  void update(void Function(CollaborationsBuilder)? updates) {
+  void update(void Function(CollaborationProjectsBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  Collaborations build() => _build();
+  CollaborationProjects build() => _build();
 
-  _$Collaborations _build() {
+  _$CollaborationProjects _build() {
     final _$result = _$v ??
-        new _$Collaborations._(
+        new _$CollaborationProjects._(
             project: project,
             skills: skills,
             user: user,
@@ -316,8 +300,7 @@ class CollaborationsBuilder
             usermail: usermail,
             userid: userid,
             id: id,
-            approved: approved,
-            people: people);
+            approved: approved);
     replace(_$result);
     return _$result;
   }

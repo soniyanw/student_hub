@@ -254,6 +254,9 @@ class _LoginState extends State<Login> {
                                         );
                                       } on Exception catch (e) {
                                         print(e);
+                                        setState(() {
+                                          loading = false;
+                                        });
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(SnackBar(
                                           content: Text(

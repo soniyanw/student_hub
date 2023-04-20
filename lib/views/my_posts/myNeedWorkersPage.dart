@@ -2,19 +2,19 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
-import 'package:project_inc/views/collaboration/my_collab_box.dart';
+import 'package:project_inc/views/my_posts/myNeedWorkerBox.dart';
 import 'package:provider/provider.dart';
 
-class MyPosts extends StatefulWidget {
-  const MyPosts({Key? key}) : super(key: key);
+class MyNeedWorkersPage extends StatefulWidget {
+  const MyNeedWorkersPage({Key? key}) : super(key: key);
 
   @override
-  State<MyPosts> createState() => _MyPostsState();
+  State<MyNeedWorkersPage> createState() => _MyNeedWorkersPageState();
 }
 
-class _MyPostsState extends State<MyPosts> {
+class _MyNeedWorkersPageState extends State<MyNeedWorkersPage> {
   Future<void> method() async {
-    await context.read<MyModel>().my_get_collab_list();
+    await context.read<MyModel>().getMyNewWorkersPosts();
     setState(() {});
   }
 
@@ -33,16 +33,17 @@ class _MyPostsState extends State<MyPosts> {
 
   @override
   Widget build(BuildContext context) {
-    BuiltList? list = context.read<MyModel>().state.myCollaborations;
+    BuiltList? list = context.read<MyModel>().state.myNeedWorkerProjects;
 
     return RefreshIndicator(
+      color: purple,
       onRefresh: () {
         _refresh();
         return Future(() => null);
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("My Posts"),
+          title: Text("My Offers"),
           backgroundColor: purple,
         ),
         body: (list == null || list.isEmpty)
@@ -52,13 +53,13 @@ class _MyPostsState extends State<MyPosts> {
                 child: ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return MyCollabBox(
+                    return MyNeedWorkerBox(
                         list[index].project,
                         list[index].user,
                         list[index].skills,
-                        list[index].offer,
                         list[index].time,
                         list[index].usermail,
+                        list[index].people,
                         list[index].id);
                   },
                 ),

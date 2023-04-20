@@ -123,6 +123,9 @@ class _MailOtpState extends State<MailOtp> {
                                     );
                                   } on FirebaseException catch (e) {
                                     print(e);
+                                    setState(() {
+                                      loading = false;
+                                    });
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(SnackBar(
                                       content: Text(e.toString()),

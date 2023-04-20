@@ -17,7 +17,12 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
   @override
   Iterable<Object?> serialize(Serializers serializers, Appstate object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object?>[];
+    final result = <Object?>[
+      'needProjects',
+      serializers.serialize(object.needProjects,
+          specifiedType: const FullType(
+              BuiltList, const [const FullType(CollaborationProjects)])),
+    ];
     Object? value;
     value = object.descrip;
     if (value != null) {
@@ -47,10 +52,10 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.collaborations;
+    value = object.needworkers;
     if (value != null) {
       result
-        ..add('collaborations')
+        ..add('needworkers')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 BuiltList, const [const FullType(Collaborations)])));
@@ -79,13 +84,29 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(Feedbacks)])));
     }
-    value = object.myCollaborations;
+    value = object.myNeedWorkerProjects;
     if (value != null) {
       result
-        ..add('myCollaborations')
+        ..add('myNeedWorkerProjects')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 BuiltList, const [const FullType(Collaborations)])));
+    }
+    value = object.myQueries;
+    if (value != null) {
+      result
+        ..add('myQueries')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Queries)])));
+    }
+    value = object.myNeedProjectPosts;
+    if (value != null) {
+      result
+        ..add('myNeedProjectPosts')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(CollaborationProjects)])));
     }
     return result;
   }
@@ -117,11 +138,17 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
           result.mail = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'collaborations':
-          result.collaborations.replace(serializers.deserialize(value,
+        case 'needworkers':
+          result.needworkers.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(Collaborations)]))!
               as BuiltList<Object?>);
+          break;
+        case 'needProjects':
+          result.needProjects.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(CollaborationProjects)
+              ]))! as BuiltList<Object?>);
           break;
         case 'queries':
           result.queries.replace(serializers.deserialize(value,
@@ -141,11 +168,23 @@ class _$AppstateSerializer implements StructuredSerializer<Appstate> {
                       BuiltList, const [const FullType(Feedbacks)]))!
               as BuiltList<Object?>);
           break;
-        case 'myCollaborations':
-          result.myCollaborations.replace(serializers.deserialize(value,
+        case 'myNeedWorkerProjects':
+          result.myNeedWorkerProjects.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(Collaborations)]))!
               as BuiltList<Object?>);
+          break;
+        case 'myQueries':
+          result.myQueries.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Queries)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'myNeedProjectPosts':
+          result.myNeedProjectPosts.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(CollaborationProjects)
+              ]))! as BuiltList<Object?>);
           break;
       }
     }
@@ -164,7 +203,9 @@ class _$Appstate extends Appstate {
   @override
   final String? mail;
   @override
-  final BuiltList<Collaborations>? collaborations;
+  final BuiltList<Collaborations>? needworkers;
+  @override
+  final BuiltList<CollaborationProjects> needProjects;
   @override
   final BuiltList<Queries>? queries;
   @override
@@ -172,7 +213,11 @@ class _$Appstate extends Appstate {
   @override
   final BuiltList<Feedbacks>? feedbacks;
   @override
-  final BuiltList<Collaborations>? myCollaborations;
+  final BuiltList<Collaborations>? myNeedWorkerProjects;
+  @override
+  final BuiltList<Queries>? myQueries;
+  @override
+  final BuiltList<CollaborationProjects>? myNeedProjectPosts;
 
   factory _$Appstate([void Function(AppstateBuilder)? updates]) =>
       (new AppstateBuilder()..update(updates))._build();
@@ -182,12 +227,18 @@ class _$Appstate extends Appstate {
       this.name,
       this.id,
       this.mail,
-      this.collaborations,
+      this.needworkers,
+      required this.needProjects,
       this.queries,
       this.answers,
       this.feedbacks,
-      this.myCollaborations})
-      : super._();
+      this.myNeedWorkerProjects,
+      this.myQueries,
+      this.myNeedProjectPosts})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        needProjects, r'Appstate', 'needProjects');
+  }
 
   @override
   Appstate rebuild(void Function(AppstateBuilder) updates) =>
@@ -204,11 +255,14 @@ class _$Appstate extends Appstate {
         name == other.name &&
         id == other.id &&
         mail == other.mail &&
-        collaborations == other.collaborations &&
+        needworkers == other.needworkers &&
+        needProjects == other.needProjects &&
         queries == other.queries &&
         answers == other.answers &&
         feedbacks == other.feedbacks &&
-        myCollaborations == other.myCollaborations;
+        myNeedWorkerProjects == other.myNeedWorkerProjects &&
+        myQueries == other.myQueries &&
+        myNeedProjectPosts == other.myNeedProjectPosts;
   }
 
   @override
@@ -219,14 +273,22 @@ class _$Appstate extends Appstate {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, descrip.hashCode), name.hashCode),
-                                id.hashCode),
-                            mail.hashCode),
-                        collaborations.hashCode),
-                    queries.hashCode),
-                answers.hashCode),
-            feedbacks.hashCode),
-        myCollaborations.hashCode));
+                            $jc(
+                                $jc(
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, descrip.hashCode),
+                                                name.hashCode),
+                                            id.hashCode),
+                                        mail.hashCode),
+                                    needworkers.hashCode),
+                                needProjects.hashCode),
+                            queries.hashCode),
+                        answers.hashCode),
+                    feedbacks.hashCode),
+                myNeedWorkerProjects.hashCode),
+            myQueries.hashCode),
+        myNeedProjectPosts.hashCode));
   }
 
   @override
@@ -236,11 +298,14 @@ class _$Appstate extends Appstate {
           ..add('name', name)
           ..add('id', id)
           ..add('mail', mail)
-          ..add('collaborations', collaborations)
+          ..add('needworkers', needworkers)
+          ..add('needProjects', needProjects)
           ..add('queries', queries)
           ..add('answers', answers)
           ..add('feedbacks', feedbacks)
-          ..add('myCollaborations', myCollaborations))
+          ..add('myNeedWorkerProjects', myNeedWorkerProjects)
+          ..add('myQueries', myQueries)
+          ..add('myNeedProjectPosts', myNeedProjectPosts))
         .toString();
   }
 }
@@ -264,11 +329,17 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
   String? get mail => _$this._mail;
   set mail(String? mail) => _$this._mail = mail;
 
-  ListBuilder<Collaborations>? _collaborations;
-  ListBuilder<Collaborations> get collaborations =>
-      _$this._collaborations ??= new ListBuilder<Collaborations>();
-  set collaborations(ListBuilder<Collaborations>? collaborations) =>
-      _$this._collaborations = collaborations;
+  ListBuilder<Collaborations>? _needworkers;
+  ListBuilder<Collaborations> get needworkers =>
+      _$this._needworkers ??= new ListBuilder<Collaborations>();
+  set needworkers(ListBuilder<Collaborations>? needworkers) =>
+      _$this._needworkers = needworkers;
+
+  ListBuilder<CollaborationProjects>? _needProjects;
+  ListBuilder<CollaborationProjects> get needProjects =>
+      _$this._needProjects ??= new ListBuilder<CollaborationProjects>();
+  set needProjects(ListBuilder<CollaborationProjects>? needProjects) =>
+      _$this._needProjects = needProjects;
 
   ListBuilder<Queries>? _queries;
   ListBuilder<Queries> get queries =>
@@ -286,11 +357,24 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
   set feedbacks(ListBuilder<Feedbacks>? feedbacks) =>
       _$this._feedbacks = feedbacks;
 
-  ListBuilder<Collaborations>? _myCollaborations;
-  ListBuilder<Collaborations> get myCollaborations =>
-      _$this._myCollaborations ??= new ListBuilder<Collaborations>();
-  set myCollaborations(ListBuilder<Collaborations>? myCollaborations) =>
-      _$this._myCollaborations = myCollaborations;
+  ListBuilder<Collaborations>? _myNeedWorkerProjects;
+  ListBuilder<Collaborations> get myNeedWorkerProjects =>
+      _$this._myNeedWorkerProjects ??= new ListBuilder<Collaborations>();
+  set myNeedWorkerProjects(ListBuilder<Collaborations>? myNeedWorkerProjects) =>
+      _$this._myNeedWorkerProjects = myNeedWorkerProjects;
+
+  ListBuilder<Queries>? _myQueries;
+  ListBuilder<Queries> get myQueries =>
+      _$this._myQueries ??= new ListBuilder<Queries>();
+  set myQueries(ListBuilder<Queries>? myQueries) =>
+      _$this._myQueries = myQueries;
+
+  ListBuilder<CollaborationProjects>? _myNeedProjectPosts;
+  ListBuilder<CollaborationProjects> get myNeedProjectPosts =>
+      _$this._myNeedProjectPosts ??= new ListBuilder<CollaborationProjects>();
+  set myNeedProjectPosts(
+          ListBuilder<CollaborationProjects>? myNeedProjectPosts) =>
+      _$this._myNeedProjectPosts = myNeedProjectPosts;
 
   AppstateBuilder();
 
@@ -301,11 +385,14 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
       _name = $v.name;
       _id = $v.id;
       _mail = $v.mail;
-      _collaborations = $v.collaborations?.toBuilder();
+      _needworkers = $v.needworkers?.toBuilder();
+      _needProjects = $v.needProjects.toBuilder();
       _queries = $v.queries?.toBuilder();
       _answers = $v.answers?.toBuilder();
       _feedbacks = $v.feedbacks?.toBuilder();
-      _myCollaborations = $v.myCollaborations?.toBuilder();
+      _myNeedWorkerProjects = $v.myNeedWorkerProjects?.toBuilder();
+      _myQueries = $v.myQueries?.toBuilder();
+      _myNeedProjectPosts = $v.myNeedProjectPosts?.toBuilder();
       _$v = null;
     }
     return this;
@@ -334,24 +421,33 @@ class AppstateBuilder implements Builder<Appstate, AppstateBuilder> {
               name: name,
               id: id,
               mail: mail,
-              collaborations: _collaborations?.build(),
+              needworkers: _needworkers?.build(),
+              needProjects: needProjects.build(),
               queries: _queries?.build(),
               answers: _answers?.build(),
               feedbacks: _feedbacks?.build(),
-              myCollaborations: _myCollaborations?.build());
+              myNeedWorkerProjects: _myNeedWorkerProjects?.build(),
+              myQueries: _myQueries?.build(),
+              myNeedProjectPosts: _myNeedProjectPosts?.build());
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'collaborations';
-        _collaborations?.build();
+        _$failedField = 'needworkers';
+        _needworkers?.build();
+        _$failedField = 'needProjects';
+        needProjects.build();
         _$failedField = 'queries';
         _queries?.build();
         _$failedField = 'answers';
         _answers?.build();
         _$failedField = 'feedbacks';
         _feedbacks?.build();
-        _$failedField = 'myCollaborations';
-        _myCollaborations?.build();
+        _$failedField = 'myNeedWorkerProjects';
+        _myNeedWorkerProjects?.build();
+        _$failedField = 'myQueries';
+        _myQueries?.build();
+        _$failedField = 'myNeedProjectPosts';
+        _myNeedProjectPosts?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Appstate', _$failedField, e.toString());

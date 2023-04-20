@@ -304,6 +304,9 @@ class _RegisterNowState extends State<RegisterNow> {
                                               (Route<dynamic> route) => false);
                                         } on FirebaseException catch (e) {
                                           print(e);
+                                          setState(() {
+                                            loading = false;
+                                          });
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                             content: Text(e.toString()),

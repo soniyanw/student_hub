@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_inc/services/service_imp.dart';
 import 'package:project_inc/services/services.dart';
-import 'package:project_inc/views/collaboration/collaboration_page.dart';
 import 'package:project_inc/views/home/menu.dart';
 import 'package:project_inc/views/queries/queries_page.dart';
 
@@ -42,7 +41,6 @@ class _HomePageState extends State<HomePage> {
             body: TabBarView(
               children: [
                 Query(),
-                Collaborate(),
               ],
             )));
   }

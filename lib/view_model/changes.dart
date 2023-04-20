@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:project_inc/models/answer.dart';
 import 'package:project_inc/models/appstate.dart';
+import 'package:project_inc/models/collaborationProjects.dart';
 import 'package:project_inc/models/collaborations.dart';
 import 'package:project_inc/models/queries.dart';
 import 'package:project_inc/services/service_imp.dart';
@@ -39,17 +40,39 @@ class MyModel extends StateNotifier<Appstate> with LocatorMixin {
     state = state.rebuild((p0) => p0.id = id);
   }
 
-  Future<void> get_collab_list() async {
-    final BuiltList<Collaborations> a = await imp.getcollaborations();
+  Future<void> getNeedProjectsPosts() async {
+    final BuiltList<CollaborationProjects> a = await imp.getNeedProjectPosts();
     state = state.rebuild((p0) {
-      p0.collaborations = a.toBuilder();
+      p0.needProjects = a.toBuilder();
     });
   }
 
-  Future<void> my_get_collab_list() async {
-    final BuiltList<Collaborations> a = await imp.getMycollaborations();
+  Future<void> getNeedWorkersPosts() async {
+    final BuiltList<Collaborations> a = await imp.getNeedWorkersPosts();
     state = state.rebuild((p0) {
-      p0.myCollaborations = a.toBuilder();
+      p0.needworkers = a.toBuilder();
+    });
+  }
+
+  Future<void> getMyNewProjectsPosts() async {
+    final BuiltList<CollaborationProjects> a =
+        await imp.getMyNewProjectsPosts();
+    state = state.rebuild((p0) {
+      p0.myNeedProjectPosts = a.toBuilder();
+    });
+  }
+
+  Future<void> getMyNewWorkersPosts() async {
+    final BuiltList<Collaborations> a = await imp.getMyNewWorkersPosts();
+    state = state.rebuild((p0) {
+      p0.myNeedWorkerProjects = a.toBuilder();
+    });
+  }
+
+  Future<void> getMyQueries() async {
+    final BuiltList<Queries> a = await imp.getMyQueries();
+    state = state.rebuild((p0) {
+      p0.myQueries = a.toBuilder();
     });
   }
 

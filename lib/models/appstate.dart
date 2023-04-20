@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:project_inc/models/answer.dart';
+import 'package:project_inc/models/collaborationProjects.dart';
 import 'package:project_inc/models/collaborations.dart';
 import 'package:project_inc/models/feedbacks.dart';
 import 'package:project_inc/models/queries.dart';
@@ -27,9 +28,12 @@ abstract class Appstate implements Built<Appstate, AppstateBuilder> {
   String? get name;
   String? get id;
   String? get mail;
-  BuiltList<Collaborations>? get collaborations;
+  BuiltList<Collaborations>? get needworkers;
+  BuiltList<CollaborationProjects> get needProjects;
   BuiltList<Queries>? get queries;
   BuiltList<Answer>? get answers;
   BuiltList<Feedbacks>? get feedbacks;
-  BuiltList<Collaborations>? get myCollaborations;
+  BuiltList<Collaborations>? get myNeedWorkerProjects;
+  BuiltList<Queries>? get myQueries;
+  BuiltList<CollaborationProjects>? get myNeedProjectPosts;
 }
