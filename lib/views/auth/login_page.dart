@@ -82,13 +82,16 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    Center(
-                      child: Text(
-                        'Student-Hub',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 50.0,
+                    Tooltip(
+                      child: Center(
+                        key: Key('student'),
+                        child: Text(
+                          'Student-Hub',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 50.0,
+                          ),
                         ),
                       ),
                     ),
