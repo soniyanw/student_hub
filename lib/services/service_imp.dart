@@ -74,15 +74,15 @@ class ServiceImp implements Services {
       }
       print(error.toString());
     }
-    // await FirebaseFirestore.instance.collection('mail').add(
-    //   {
-    //     'to': "sonuvijay2003@gmail.com",
-    //     'message': {
-    //       'subject': "Received a feedback from ${data['name'].toString()}",
-    //       'text': "The feedback: $feedback",
-    //     }
-    //   },
-    // ).then((value) => print("Mail Delivered"));
+    await FirebaseFirestore.instance.collection('mail').add(
+      {
+        'to': "sonuvijay2003@gmail.com",
+        'message': {
+          'subject': "Received a feedback from ${data['name'].toString()}",
+          'text': "The feedback: $feedback",
+        }
+      },
+    ).then((value) => print("Mail Delivered"));
   }
 
   Future<String> getcurrentuser_id() async {
