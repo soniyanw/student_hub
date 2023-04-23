@@ -143,7 +143,10 @@ class _MyNeedWorkerBoxState extends State<MyNeedWorkerBox> {
                               width: 18.0,
                             ),
                             Container(
-                              color: Colors.white,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                               child: DropdownButton<int>(
                                 value: people,
                                 items: [

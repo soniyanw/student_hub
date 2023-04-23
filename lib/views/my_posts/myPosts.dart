@@ -25,50 +25,114 @@ class _MyPostsState extends State<MyPosts> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            MaterialButton(
-              onPressed: () {
+            InkWell(
+              onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyQueries()));
               },
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Text(
-                  "My Queries",
-                  style: TextStyle(color: purple),
-                ),
+              child: Container(
+                height: 40,
+                width: 300,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
+                child: Center(child: Text("My Queries")),
               ),
             ),
-            MaterialButton(
-              onPressed: () {
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyQueries()));
+              },
+              child: Container(
+                height: 100,
+                width: 300,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                      'https://crosstalk.cell.com/hs-fs/hubfs/Images/Alex%20Lenkei/An%20authors%20guide%20to%20copyediting%20queries/query-letter-featured.jpg?width=1000&name=query-letter-featured.jpg'),
+                )),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => MyNeedProjectsPage()));
               },
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Text(
-                  "My Offers to Work",
-                  style: TextStyle(color: purple),
-                ),
+              child: Container(
+                height: 40,
+                width: 300,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
+                child: Center(child: Text("My Offers to Work")),
               ),
             ),
-            MaterialButton(
-              onPressed: () {
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyNeedProjectsPage()));
+              },
+              child: Container(
+                height: 100,
+                width: 300,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                      'https://s3-ap-south-1.amazonaws.com/static.awfis.com/wp-content/uploads/2017/07/07184649/ProjectManagement.jpg'),
+                )),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => MyNeedWorkersPage()));
               },
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                child: Text(
-                  "My Offers to Hire",
-                  style: TextStyle(color: purple),
-                ),
+              child: Container(
+                height: 40,
+                width: 300,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
+                child: Center(child: Text("My Offers to Hire")),
+              ),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyNeedWorkersPage()));
+              },
+              child: Container(
+                height: 100,
+                width: 300,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(
+                      'https://resources.workable.com/wp-content/uploads/2019/12/how_to_hire_in_construction.png'),
+                )),
               ),
             ),
           ],

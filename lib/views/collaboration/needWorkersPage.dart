@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_inc/services/services.dart';
 import 'package:project_inc/view_model/changes.dart';
 import 'package:project_inc/views/collaboration/needWorkerBox.dart';
-import 'package:project_inc/views/collaboration/newNeedWorker.dart';
+import 'package:project_inc/views/collaboration/newNeedProject.dart';
 import 'package:project_inc/views/collaboration/searchProjects.dart';
 import 'package:provider/provider.dart';
 
@@ -93,13 +93,13 @@ class _NeedWorkersPageState extends State<NeedWorkersPage> {
             child: MaterialButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NewNeedWorker()));
+                    MaterialPageRoute(builder: (context) => NewNeedProject()));
               },
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Text(
-                  "Need Colleague",
+                  "Need Project",
                   style: TextStyle(color: purple),
                 ),
               ),
