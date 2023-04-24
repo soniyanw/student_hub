@@ -51,6 +51,7 @@ dependencies:
   emailjs: ^1.1.0
   integration_test:
     sdk: flutter
+  mockito: ^5.4.0
 
 dev_dependencies:
   flutter_test:

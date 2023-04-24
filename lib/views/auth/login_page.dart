@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
-    initi();
+    //initi();
     // TODO: implement initState
     super.initState();
   }
@@ -42,6 +42,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: const Key('student'),
       body: GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -83,7 +84,6 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     Center(
-                      key: Key('student'),
                       child: Text(
                         'Student-Hub',
                         style: TextStyle(
