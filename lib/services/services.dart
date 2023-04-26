@@ -36,6 +36,7 @@ abstract class Services {
   Future<void> postans(String queryid, String ans);
   launchURLtoWeb(String urll);
   Future<BuiltList<Feedbacks>> getFeedbacks();
+  Future<bool> checkForAdmin(String code, String password);
 }
 
 final purple = Colors.purple[900];

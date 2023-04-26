@@ -1,6 +1,5 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emailjs/emailjs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_inc/models/answer.dart';
 import 'package:project_inc/models/collaborationProjects.dart';
@@ -53,27 +52,27 @@ class ServiceImp implements Services {
       ..userid = data['id'].toString()
       ..name = data['name'].toString());
     feeds.set(newFeed.toJson());
-    try {
-      await EmailJS.send(
-        'service_4cm27gr',
-        'template_rltu71t',
-        {
-          'user_email': 'sonuvijay2003@gmail.com',
-          'message':
-              "A new feedback received from ${data['name']} as $feedback",
-        },
-        const Options(
-          publicKey: 'Z5XNaa37f2AsTnN2F',
-          privateKey: 'sbJrVsXTnJIwS3s2w_j5Q',
-        ),
-      );
-      print('SUCCESS!');
-    } catch (error) {
-      if (error is EmailJSResponseStatus) {
-        print('ERROR... ${error.status}: ${error.text}');
-      }
-      print(error.toString());
-    }
+    // try {
+    //   await EmailJS.send(
+    //     'service_4cm27gr',
+    //     'template_rltu71t',
+    //     {
+    //       'user_email': 'sonuvijay2003@gmail.com',
+    //       'message':
+    //           "A new feedback received from ${data['name']} as $feedback",
+    //     },
+    //     const Options(
+    //       publicKey: 'Z5XNaa37f2AsTnN2F',
+    //       privateKey: 'sbJrVsXTnJIwS3s2w_j5Q',
+    //     ),
+    //   );
+    //   print('SUCCESS!');
+    // } catch (error) {
+    //   if (error is EmailJSResponseStatus) {
+    //     print('ERROR... ${error.status}: ${error.text}');
+    //   }
+    //   print(error.toString());
+    // }
     await FirebaseFirestore.instance.collection('mail').add(
       {
         'to': "sonuvijay2003@gmail.com",
@@ -239,6 +238,20 @@ class ServiceImp implements Services {
     return list.toBuiltList();
   }
 
+  Future<bool> checkForAdmin(String code, String password) async {
+    final data = await FirebaseFirestore.instance
+        .collection('admin')
+        .doc("DnWXeR8v6i9NTikb7skg")
+        .get();
+    if (code == data['name'] && code == data['secretCode']) {
+      print("True");
+      return true;
+    } else {
+      print("False");
+      return false;
+    }
+  }
+
   Future<BuiltList<Collaborations>> getMyNewWorkersPosts() async {
     final uidd = await FirebaseAuth.instance.currentUser!.uid;
     final data =
@@ -365,6 +378,23 @@ class ServiceImp implements Services {
       ..userid = data['id'].toString()
       ..answer = ans);
     feeds.set(newFeed.toJson());
+    final queryUser = await FirebaseFirestore.instance
+        .collection('queries')
+        .doc(queryid)
+        .get();
+    final user = queryUser['userid'];
+    final userMailFetch =
+        await FirebaseFirestore.instance.collection('users').doc(user).get();
+    final userMail = userMailFetch['mail'];
+    await FirebaseFirestore.instance.collection('mail').add(
+      {
+        'to': userMail.toString(),
+        'message': {
+          'subject': "Received an answer from ${data['name'].toString()}",
+          'text': "Your Query: ${queryUser['query']}\n Answer Received: ${ans}",
+        }
+      },
+    ).then((value) => print("Mail Delivered"));
   }
 
   Future<BuiltList<Answer>> getanswers(String queryid) async {

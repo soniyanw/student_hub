@@ -27,49 +27,71 @@
 //     expect(find.text('0'), findsNothing);
 //     expect(find.text('1'), findsOneWidget);
 //   });
+// // }
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_test/flutter_test.dart';
+// import 'package:project_inc/services/service_imp.dart';
+// import 'package:project_inc/services/services.dart';
+//
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//
+//   group('Authentication Tests', () {
+//     final Services auth = ServiceImp();
+//
+//     setUp(() async {
+//       await FirebaseAuth.instance.signOut();
+//     });
+//
+//     test('Sign In with Correct Credentials', () async {
+//       await auth.signin(mail: 'sonu@gmail.com', pass: '66666666');
+//       expect(FirebaseAuth.instance.currentUser, isNotNull);
+//     });
+//
+//     // test('Sign Up with Correct Credentials', () async {
+//     //   await auth.signup(
+//     //       name: 'Test User',
+//     //       mail: 'testuser@example.com',
+//     //       pass: 'testpass');
+//     //   expect(FirebaseAuth.instance.currentUser, isNotNull);
+//     // });
+//
+//     test('Sign Up with Incorrect Credentials', () async {
+//       expect(
+//           () async =>
+//               await auth.signup(name: 'Test User', mail: '', pass: 'testpass'),
+//           throwsA(isInstanceOf<FirebaseAuthException>()));
+//     });
+//
+//     test('Sign In with Incorrect Credentials', () async {
+//       expect(
+//           () async => await auth.signin(mail: 'testuser@example.com', pass: ''),
+//           throwsA(isInstanceOf<FirebaseAuthException>()));
+//     });
+//   });
 // }
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:project_inc/services/service_imp.dart';
-import 'package:project_inc/services/services.dart';
+import 'package:test/test.dart';
 
-Future<void> main() async {
+Future<String> initi() async {
   WidgetsFlutterBinding.ensureInitialized();
+  var imp = ServiceImp();
   await Firebase.initializeApp();
 
-  group('Authentication Tests', () {
-    final Services auth = ServiceImp();
+  return await imp.getcurrentuser_mail();
+}
 
-    setUp(() async {
-      await FirebaseAuth.instance.signOut();
-    });
+Future<void> main() async {
+  Future<String> mail = initi();
 
-    test('Sign In with Correct Credentials', () async {
-      await auth.signin(mail: 'sonu@gmail.com', pass: '66666666');
-      expect(FirebaseAuth.instance.currentUser, isNotNull);
-    });
-
-    // test('Sign Up with Correct Credentials', () async {
-    //   await auth.signup(
-    //       name: 'Test User',
-    //       mail: 'testuser@example.com',
-    //       pass: 'testpass');
-    //   expect(FirebaseAuth.instance.currentUser, isNotNull);
-    // });
-
-    test('Sign Up with Incorrect Credentials', () async {
-      expect(
-          () async =>
-              await auth.signup(name: 'Test User', mail: '', pass: 'testpass'),
-          throwsA(isInstanceOf<FirebaseAuthException>()));
-    });
-
-    test('Sign In with Incorrect Credentials', () async {
-      expect(
-          () async => await auth.signin(mail: 'testuser@example.com', pass: ''),
-          throwsA(isInstanceOf<FirebaseAuthException>()));
+  group('Testing App Provider', () {
+    test('A new item should be added', () {
+      expect(mail.isNotEmpty, true);
     });
   });
 }

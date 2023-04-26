@@ -181,8 +181,9 @@ class _AdminLoginState extends State<AdminLogin> {
                           backgroundColor:
                               MaterialStateProperty.all(Colors.white),
                           shape: MaterialStateProperty.all(StadiumBorder())),
-                      onPressed: () {
-                        if (code == "abcde" && enteredpass == "abcde") {
+                      onPressed: () async {
+                        bool valid = await imp.checkForAdmin(code, enteredpass);
+                        if (valid) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(
                               "Logged in Successfully",

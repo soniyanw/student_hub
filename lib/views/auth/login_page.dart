@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
 
   @override
   void initState() {
-    //initi();
+    initi();
     // TODO: implement initState
     super.initState();
   }
