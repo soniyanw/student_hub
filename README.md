@@ -2,6 +2,15 @@ Student-Hub is a cutting-edge mobile application that connects students and prof
 
 Role: Full-Stack Developer
 
+Key Features:
+- User authentication and secure login process.
+- Posting queries, providing reference links, and viewing answers.
+- Advanced search functionality based on skills and project descriptions.
+- Finding workers and projects based on experience and required skills, with the ability to edit or delete posts.
+- Posting feedback for platform administration.
+- User profiles showcasing personal information and post history.
+- Admin functionality for reviewing and approving hire/work posts.
+
 Responsibilities:
 - Developed the frontend using Flutter and Dart for a seamless user experience.
 - Integrated Firebase for secure user authentication, data storage, and real-time communication.
