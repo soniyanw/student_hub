@@ -27,3 +27,9 @@ Technologies Used:
 - NodeJS and Firebase Functions
 
 Student-Hub empowers students and professionals to actively engage in a vibrant community, seek expert assistance, and collaborate on meaningful projects. It creates a dynamic learning environment and supports personal and professional growth.
+
+SRS Documentation (https://github.com/soniyanw/student_hub/files/12252899/srs.docx)
+
+Implementation and Screenshots (https://github.com/soniyanw/student_hub/files/12252927/Implementation-Software.Engg.docx)
+
+
