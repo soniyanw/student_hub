@@ -91,8 +91,7 @@ class _$EmployeeSerializer implements StructuredSerializer<Employee> {
       result
         ..add('contacts')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(
-                List, const [const FullType(EmergencyContact)])));
+            specifiedType: const FullType(EmergencyContact)));
     }
     value = object.hrid;
     if (value != null) {
@@ -164,10 +163,9 @@ class _$EmployeeSerializer implements StructuredSerializer<Employee> {
               specifiedType: const FullType(String)) as String?;
           break;
         case 'contacts':
-          result.contacts = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      List, const [const FullType(EmergencyContact)]))
-              as List<EmergencyContact>?;
+          result.contacts.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(EmergencyContact))!
+              as EmergencyContact);
           break;
         case 'hrid':
           result.hrid = serializers.deserialize(value,
@@ -206,7 +204,7 @@ class _$Employee extends Employee {
   @override
   final String? adhar;
   @override
-  final List<EmergencyContact>? contacts;
+  final EmergencyContact? contacts;
   @override
   final String? hrid;
 
@@ -356,9 +354,11 @@ class EmployeeBuilder implements Builder<Employee, EmployeeBuilder> {
   String? get adhar => _$this._adhar;
   set adhar(String? adhar) => _$this._adhar = adhar;
 
-  List<EmergencyContact>? _contacts;
-  List<EmergencyContact>? get contacts => _$this._contacts;
-  set contacts(List<EmergencyContact>? contacts) => _$this._contacts = contacts;
+  EmergencyContactBuilder? _contacts;
+  EmergencyContactBuilder get contacts =>
+      _$this._contacts ??= new EmergencyContactBuilder();
+  set contacts(EmergencyContactBuilder? contacts) =>
+      _$this._contacts = contacts;
 
   String? _hrid;
   String? get hrid => _$this._hrid;
@@ -381,7 +381,7 @@ class EmployeeBuilder implements Builder<Employee, EmployeeBuilder> {
       _mothername = $v.mothername;
       _dob = $v.dob;
       _adhar = $v.adhar;
-      _contacts = $v.contacts;
+      _contacts = $v.contacts?.toBuilder();
       _hrid = $v.hrid;
       _$v = null;
     }
@@ -422,7 +422,7 @@ class EmployeeBuilder implements Builder<Employee, EmployeeBuilder> {
               mothername: mothername,
               dob: dob,
               adhar: adhar,
-              contacts: contacts,
+              contacts: _contacts?.build(),
               hrid: hrid);
     } catch (_) {
       late String _$failedField;
@@ -432,6 +432,9 @@ class EmployeeBuilder implements Builder<Employee, EmployeeBuilder> {
 
         _$failedField = 'education';
         _education?.build();
+
+        _$failedField = 'contacts';
+        _contacts?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'Employee', _$failedField, e.toString());

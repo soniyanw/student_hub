@@ -1,9 +1,11 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project_inc/models/emergency_contact.dart';
+import 'package:project_inc/models/certificates.dart';
 import 'package:project_inc/models/employee.dart';
 import 'package:project_inc/models/hr.dart';
+import 'package:project_inc/models/identity_docs.dart';
+import 'package:project_inc/models/tax_docs.dart';
 import 'package:project_inc/services/services.dart';
 
 bool loading = false;
@@ -50,7 +52,7 @@ class ServiceImp implements Services {
       String mothername,
       DateTime dob,
       String adhar,
-      List<EmergencyContact> emergency) async {
+      String emergency) async {
     await FirebaseFirestore.instance.collection('employees').doc(empid).update({
       "mail": mail,
       "phoneno": phoneno,
@@ -106,6 +108,22 @@ class ServiceImp implements Services {
       ..password = name.substring(0, 4) + phoneno.substring(4, 8)
       ..name = name
       ..phoneno = phoneno
+      ..mail = "--"
+      ..address.state = "--"
+      ..address.street = "--"
+      ..address.doorno = "--"
+      ..address.city = "--"
+      ..address.pincode = 00
+      ..gender = "--"
+      ..education.qualification = "--"
+      ..education.percent = 0.0
+      ..fathername = "--"
+      ..mothername = "--"
+      ..dob = DateTime.now()
+      ..adhar = "--"
+      ..contacts.phoneno = "--"
+      ..contacts.name = "--"
+      ..contacts.relation = "--"
       ..hrid = hrid);
     feeds.set(newFeed.toJson());
     return feeds.id;
@@ -177,7 +195,6 @@ class ServiceImp implements Services {
             .collection('employees')
             .where('hrid', isEqualTo: hrid.toString())
             .get();
-
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
         _collectionRef.docs;
     List<Employee> list = [];
@@ -224,5 +241,38 @@ class ServiceImp implements Services {
         .collection('hrs')
         .doc(hrid)
         .update({"password": password});
+  }
+
+  Future<void> addPersonalDoc(String link) async {
+    final feeds = await FirebaseFirestore.instance.collection('pdocs').doc();
+    IdentityDocs newFeed = IdentityDocs((b) => b
+      ..empid = empid
+      ..doc = link);
+    feeds.set(newFeed.toJson());
+  }
+
+  Future<void> addPdocs(String link) async {
+    final feeds = await FirebaseFirestore.instance.collection('pdocs').doc();
+    IdentityDocs newFeed = IdentityDocs((b) => b
+      ..empid = empid
+      ..doc = link);
+    feeds.set(newFeed.toJson());
+  }
+
+  Future<void> addTax(String link) async {
+    final feeds = await FirebaseFirestore.instance.collection('tax').doc();
+    TaxDocs newFeed = TaxDocs((b) => b
+      ..userid = empid
+      ..doc = link);
+    feeds.set(newFeed.toJson());
+  }
+
+  Future<void> addcertificates(String link) async {
+    final feeds =
+        await FirebaseFirestore.instance.collection('certificates').doc();
+    Certificates newFeed = Certificates((b) => b
+      ..userid = empid
+      ..doc = link);
+    feeds.set(newFeed.toJson());
   }
 }

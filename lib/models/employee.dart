@@ -33,7 +33,7 @@ abstract class Employee implements Built<Employee, EmployeeBuilder> {
   String? get mothername;
   DateTime? get dob;
   String? get adhar;
-  List<EmergencyContact>? get contacts;
+  EmergencyContact? get contacts;
   String? get hrid;
   // IdentityDocs get iddoc;
   // TaxDocs get taxdoc;
