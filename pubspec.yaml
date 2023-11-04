@@ -29,21 +29,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore:
-  firebase_core:
-  firebase_auth:
-  firebase_storage:
-  firebase_database:
-  built_value: ^8.1.1
+  cloud_firestore: ^4.9.3
+  firebase_core: ^2.17.0
+  firebase_auth: ^4.10.1
+  firebase_storage: ^11.2.8
+  firebase_database: ^10.2.7
+  built_value: ^8.6.3
   built_collection:
-  state_notifier: ^0.7.2+1
-  flutter_state_notifier: ^0.7.1
+  state_notifier: ^1.0.0
+  flutter_state_notifier: ^1.0.0
   provider: ^6.0.3
   flutter_launcher_icons:
   cupertino_icons: ^1.0.2
   cloud_functions: ^4.1.0
   mailer: ^6.0.0
-  http: ^0.13.5
+  http: ^1.1.0
   emailjs: ^1.1.0
   mockito: ^5.4.0
 
