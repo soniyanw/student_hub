@@ -72,11 +72,11 @@ class ServiceImp implements Services {
     });
   }
 
-  Future<Employee> getEmpDetails(String id) async {
+  Future<Employee> getEmpDetails() async {
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
         await FirebaseFirestore.instance
             .collection('employees')
-            .where('id', isEqualTo: id.toString())
+            .where('id', isEqualTo: empid.toString())
             .get();
 
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
@@ -129,13 +129,12 @@ class ServiceImp implements Services {
     return feeds.id;
   }
 
-  Future<Hr> getHrDetails(String id) async {
+  Future<Hr> getHrDetails() async {
     final QuerySnapshot<Map<String, dynamic>> _collectionRef =
         await FirebaseFirestore.instance
             .collection('hrs')
-            .where('id', isEqualTo: id.toString())
+            .where('id', isEqualTo: hrid.toString())
             .get();
-
     List<QueryDocumentSnapshot<Map<String, dynamic>>> snapshot =
         _collectionRef.docs;
     List<Hr> list = [];
