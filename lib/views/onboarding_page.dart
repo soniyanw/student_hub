@@ -47,10 +47,9 @@ class OnboardingPage extends StatelessWidget {
                     ),
                   Center(
                       child: Container(
-                        color: Colors.pink,
-                        width: 40,
-                        height: 40,
-                      )),
+                          width: 200,
+                          height: 200,
+                          child: Image.asset(imagePath))),
                   if (showForwardButton)
                     IconButton(
                       onPressed: onNextPressed,
@@ -89,7 +88,7 @@ class OnboardingPage extends StatelessWidget {
                         style: ButtonStyle(
                           elevation: MaterialStateProperty.all<double>(15.0),
                           shape:
-                          MaterialStateProperty.all<RoundedRectangleBorder>(
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(9),
                             ),
@@ -111,67 +110,67 @@ class OnboardingPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    if (isLastPage)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        child: GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => LoginPage(
-                            //       onClickedSignup: () {},
-                            //     ),
-                            //   ),
-                            // );
-                          },
-                          child: RichText(
-                            text: TextSpan(
-                              style: DefaultTextStyle.of(context).style,
-                              children: const [
-                                TextSpan(
-                                  text: 'Already a user? ',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: 'Login',
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: Color.fromRGBO(53, 85, 235, 1),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                    // if (isLastPage)
+                    //   Padding(
+                    //     padding: const EdgeInsets.symmetric(vertical: 16),
+                    //     child: GestureDetector(
+                    //       onTap: () {
+                    //         // Navigator.push(
+                    //         //   context,
+                    //         //   MaterialPageRoute(
+                    //         //     builder: (context) => LoginPage(
+                    //         //       onClickedSignup: () {},
+                    //         //     ),
+                    //         //   ),
+                    //         // );
+                    //       },
+                    //       // child: RichText(
+                    //       //   text: TextSpan(
+                    //       //     style: DefaultTextStyle.of(context).style,
+                    //       //     children: const [
+                    //       //       TextSpan(
+                    //       //         text: 'Already a user? ',
+                    //       //         style: TextStyle(
+                    //       //           color: Colors.black,
+                    //       //           fontSize: 16,
+                    //       //           fontWeight: FontWeight.normal,
+                    //       //           height: 1,
+                    //       //         ),
+                    //       //       ),
+                    //       //       TextSpan(
+                    //       //         text: 'Login',
+                    //       //         style: TextStyle(
+                    //       //           decoration: TextDecoration.underline,
+                    //       //           color: Color.fromRGBO(53, 85, 235, 1),
+                    //       //           fontSize: 16,
+                    //       //           fontWeight: FontWeight.normal,
+                    //       //           height: 1,
+                    //       //         ),
+                    //       //       ),
+                    //       //     ],
+                    //       //   ),
+                    //       // ),
+                    //     ),
+                    //   ),
                   ],
                 ),
               ),
-              Positioned(
-                top: 16,
-                right: 16,
-                child: TextButton(
-                  onPressed: onSkipPressed,
-                  child: const Text(
-                    'Skip >',
-                    style: TextStyle(
-                      color: Color.fromRGBO(88, 87, 87, 1),
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                      height: 1,
-                    ),
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   top: 16,
+              //   right: 16,
+              //   child: TextButton(
+              //     onPressed: onSkipPressed,
+              //     child: const Text(
+              //       'Skip >',
+              //       style: TextStyle(
+              //         color: Color.fromRGBO(88, 87, 87, 1),
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.normal,
+              //         height: 1,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -193,23 +192,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, String>> onboardingData = [
     {
-      'imagePath': 'assets/onboarding_1.png',
-      'mainText': 'Welcome to TeslaX',
-    },
-    {
-      'imagePath': 'assets/onboarding_2.png',
+      'imagePath': 'assets/pngegg 2.png',
       'mainText': 'Register using your Mail and Phone Number',
     },
     {
-      'imagePath': 'assets/onboarding_3.png',
+      'imagePath': 'assets/mngr-hr-emp.png',
       'mainText': 'Enter your personal Details',
     },
     {
-      'imagePath': 'assets/onboarding_4.png',
+      'imagePath': 'assets/docs.png',
       'mainText': 'Upload the Documents',
     },
     {
-      'imagePath': 'assets/onboarding_5.png',
+      'imagePath': 'assets/deal done.png',
       'mainText': 'Welcome Onboard',
     },
   ];
@@ -302,39 +297,47 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          PageView.builder(
-            controller: _pageController,
-            itemCount: onboardingData.length,
-            itemBuilder: (BuildContext context, int index) {
-              return OnboardingPage(
-                imagePath: onboardingData[index]['imagePath']!,
-                mainText: onboardingData[index]['mainText']!,
-                onNextPressed: _onNextPressed,
-                onSkipPressed: _onSkipPressed,
-                onBackPressed: _onBackPressed,
-                showBackButton: index != 0,
-                showForwardButton: index != onboardingData.length - 1,
-                isLastPage: index == onboardingData.length - 1,
-              );
-            },
-            onPageChanged: (int page) {
-              setState(() {
-                _currentPage = page;
-              });
-            },
-          ),
-          const Positioned(
-            bottom: 40,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                )),
+            PageView.builder(
+              controller: _pageController,
+              itemCount: onboardingData.length,
+              itemBuilder: (BuildContext context, int index) {
+                return OnboardingPage(
+                  imagePath: onboardingData[index]['imagePath']!,
+                  mainText: onboardingData[index]['mainText']!,
+                  onNextPressed: _onNextPressed,
+                  onSkipPressed: _onSkipPressed,
+                  onBackPressed: _onBackPressed,
+                  showBackButton: index != 0,
+                  showForwardButton: index != onboardingData.length - 1,
+                  isLastPage: index == onboardingData.length - 1,
+                );
+              },
+              onPageChanged: (int page) {
+                setState(() {
+                  _currentPage = page;
+                });
+              },
             ),
-          ),
-        ],
+            const Positioned(
+              bottom: 40,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
